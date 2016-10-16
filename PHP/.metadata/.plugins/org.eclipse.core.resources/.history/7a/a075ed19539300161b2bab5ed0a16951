@@ -1,0 +1,32 @@
+<?php
+require_once __DIR__.'/InputValidator.php';
+require_once __DIR__.'/../persistence/PersistenceFoodTruck.php';
+require_once __DIR__.'/../model/Equipment.php';
+require_once __DIR__.'/../model/FTMS.php';
+
+class Controller{
+
+	public function __construct(){
+
+	}
+
+	public function createEquipment($equipment_name, $quantity){
+		//1. Validate input
+		$error = "";
+		$name = InputValidator::validate_input($equipment_name);
+		if ($name == null || strlen($name)==0) {
+			throw new Exception("Equipment name cannot be empty!");
+		} else{
+			//2. load all of the data
+			$pm = new PersistenceFoodTruck();
+			$rm = $pm->loadDataFromStore();
+				
+			//3. Add the new participant
+			$equipment = new Equipment($name);
+			$rm->addEquipment($equipment);
+				
+			//4. Write all of the data
+			$pm->writeDataToStore($rm);
+		}
+	}
+}
