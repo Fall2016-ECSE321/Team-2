@@ -15,7 +15,8 @@ class Controller{
 		$error = "";
 		$name = InputValidator::validate_input($equipment_name);
 		$quantity = InputValidator::validate_input($equipment_quantity);
-		if ($name!=null && strlen($name)!=0 && $quantity!=null && strlen($quantity)!=0 && intval($quantity) != 0){
+		$isInt = preg_match('/^[0-9]+$/',$quantity);
+		if ($name!=null && strlen($name)!=0 && $quantity!=null && strlen($quantity)!=0 && $isInt){
 			//2. load all of the data
 			$pm = new PersistenceFoodTruck();
 			$rm = $pm->loadDataFromStore();
@@ -34,8 +35,8 @@ class Controller{
 			if ($quantity == null || strlen($quantity) ==0) {
 				$error .= "@2Equipment quantity cannot be empty! ";
 			}
-			else if (intval($quantity) ==0) {
-				$error .= "@2Equipment quantity must be an integer and cannot be set to 0! ";
+			else if (!$isInt) {
+				$error .= "@2Equipment quantity must be a positive integer! ";
 			}
 			throw new Exception(trim($error));
 		} 
