@@ -1,0 +1,22 @@
+<?php
+require_once 'controller/Controller.php';
+
+$_SESSION["errorEquipmentName"] = "";
+$_SESSION["errorEquipmentQuantity"] = "";
+session_start( );
+
+$c = new Controller();
+try {
+	$name = $_POST['equipment_name'];
+	$quantity = $_POST['equipement_quantity'];
+	$c->createEquipment($name,$quantity);
+} catch (Exception $e) {
+	$_SESSION["errorParticipantName"] = $e->getMessage();
+}
+?>
+<!DOCTYPE html> 
+<html>
+	<head>
+			<meta http-equiv= "refresh" content="0; url=/EventRegistration/" />
+	</head>
+</html>
