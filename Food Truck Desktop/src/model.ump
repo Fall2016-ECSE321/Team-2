@@ -1,0 +1,111 @@
+namespace model;
+
+class FTMS
+{
+  singleton;
+  1 -> * Equipment equipments;
+  1 -> * Supply;
+  1 -> * Staff;
+  1 -> * Order;
+  1 -> * MenuItem;
+  1 <- * Manager;
+}
+
+class Equipment
+{
+  name;
+  description;
+  int quantity;
+}
+
+class Staff
+{
+  name;
+  role;
+  1 -> * TimeBlock;
+}
+
+class TimeBlock
+{
+  Time startTime;
+  Time endTime;
+  int dayOfWeek;
+}
+
+class Supply
+{
+  name;
+  description;
+  int quantity;
+}
+
+class Order
+{
+  1 -> * MenuItem;
+}
+
+class MenuItem
+{
+  name;
+  1 -> * Supply;
+}
+
+class Manager
+{
+  autounique id;
+  permission;
+}
+
+//$?[End_of_model]$?
+
+class Equipment
+{
+  position 59 103 112 73;
+  position.association Equipment__FTMS 72,0 0,33;
+  position.association Equipment__FTMS 55,0 0,36;
+}
+
+class Staff
+{
+  position 217 203 112 73;
+  position.association Staff__TimeBlock 0,52 131,53;
+}
+
+class Supply
+{
+  position 379 205 112 73;
+}
+
+class Order
+{
+  position 551 107 109 45;
+  position.association MenuItem__Order 49,45 52,0;
+}
+
+class MenuItem
+{
+  position 549 207 112 62;
+  position.association MenuItem__Supply 0,28 112,29;
+}
+
+class TimeBlock
+{
+  position 40 202 131 90;
+}
+
+class FTMS
+{
+  position 302 28 109 45;
+  position.association Equipment__FTMS 0,40 112,35;
+  position.association FTMS__TimeBlock 10,45 130,0;
+  position.association FTMS__Supply 56,45 45,0;
+  position.association FTMS__Order 109,37 0,3;
+  position.association FTMS__MenuItem 93,45 5,0;
+  position.association FTMS__Staff 30,45 52,0;
+  position.association FTMS__Manager 0,10 147,10;
+}
+
+class Manager
+{
+  position 59 21 147 73;
+}
