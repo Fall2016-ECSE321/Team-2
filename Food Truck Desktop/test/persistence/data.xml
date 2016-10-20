@@ -1,0 +1,18 @@
+<FTMS id="1">
+  <equipments id="2">
+    <equipment id="3">
+      <name>Butter knife</name>
+      <description>Careful it is sharp!</description>
+      <quantity>5</quantity>
+    </equipment>
+    <equipment id="4">
+      <name>Chef hat</name>
+      <description>Do not wear it if you are not a chef!</description>
+      <quantity>10</quantity>
+    </equipment>
+  </equipments>
+  <supplies id="5"/>
+  <staffs id="6"/>
+  <orders id="7"/>
+  <menuItems id="8"/>
+</FTMS>
