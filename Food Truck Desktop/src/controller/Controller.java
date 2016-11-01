@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 import controller.InvalidInputException;
@@ -126,7 +127,7 @@ public class Controller {
 		master.addSupply(supply);
 		PersistenceXStream.saveToXMLwithXStream(master);
 	}
-	
+
 	public void createStaff(String name, String role) throws InvalidInputException{
 		String error = "";
 		if(name == null || name.trim().length() == 0)
@@ -145,14 +146,14 @@ public class Controller {
 		master.addStaff(staff);
 		PersistenceXStream.saveToXMLwithXStream(master);
 	}
-	
+
 	public void createMenuItem(String name, ArrayList<Supply> ingredients) throws InvalidInputException{
 		String error = "";
 		if(name == null || name.trim().length() == 0)
 			error += "Menu item name cannot be empty! ";
 		else if(name.length() > 50)
 			error += "Menu item name cannot be too long! ";
-		if(ingredients.isEmpty())
+		if(ingredients == null || ingredients.isEmpty())
 			error += "Menu item ingredients cannot be empty!";
 		else if(ingredients.size() > 50)
 			error += "Menu item ingredients cannot exceed 50!";
@@ -166,8 +167,29 @@ public class Controller {
 		master.addMenuItem(menuItem);
 		PersistenceXStream.saveToXMLwithXStream(master);
 	}
-	//	
-	//	public void createTimeBlock() throws InvalidInputException{
-	//		TimeBlock timeBlock = new TimeBlock();
-	//	}
+	
+	// for dayOfWeek use 1 for Monday, ... , 7 for Sunday
+	public void createTimeBlock(Time startTime, Time endTime, int dayOfWeek, Staff staff) throws InvalidInputException{
+		String error = "";
+		if(startTime == null)
+			error += "Time block start time cannot be empty! ";
+		if(endTime == null)
+			error += "Time block end time cannot be empty! ";
+		if(dayOfWeek < 1 || dayOfWeek > 7)
+			error += "Time block day of the week must be between Monday and Sunday! ";
+		if(startTime != null && endTime != null && endTime.getTime() < startTime.getTime())
+			error += "Time block end time cannot be before start time! ";
+		if(staff == null)
+			error += "Time block must be assigned to a staff!";
+		error = error.trim();
+		if(error.length() > 0)
+			throw new InvalidInputException(error);
+		TimeBlock timeBlock = new TimeBlock(startTime, endTime, dayOfWeek);
+		FTMS master = FTMS.getInstance();
+		for(int x = 0; x < master.getStaffs().size(); x++){
+			if(master.getStaff(x) == staff)
+				master.getStaff(x).addTimeBlock(timeBlock);
+		}
+		PersistenceXStream.saveToXMLwithXStream(master);
+	}
 }
