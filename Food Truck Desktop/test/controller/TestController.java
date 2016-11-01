@@ -4,7 +4,9 @@ import static org.junit.Assert.*;
 
 import java.awt.MenuItem;
 import java.io.File;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.After;
@@ -116,7 +118,7 @@ public class TestController {
 		// check model in memory
 		assertEquals(0, master.getEquipments().size());
 	}
-	
+
 	@Test
 	public void testCreateEquipmentOutOfRange(){
 		FTMS master = FTMS.getInstance();
@@ -136,7 +138,7 @@ public class TestController {
 		// check model in memory
 		assertEquals(0, master.getEquipments().size());
 	}
-	
+
 	@Test
 	public void testCreateEquipmentQuanityNotInteger(){
 		FTMS master = FTMS.getInstance();
@@ -156,7 +158,7 @@ public class TestController {
 		// check model in memory
 		assertEquals(0, master.getEquipments().size());
 	}
-	
+
 	@Test
 	public void testCreateSupply() {
 		FTMS master = FTMS.getInstance();
@@ -236,7 +238,7 @@ public class TestController {
 		// check model in memory
 		assertEquals(0, master.getSupplies().size());
 	}
-	
+
 	@Test
 	public void testCreateSupplyOutOfRange(){
 		FTMS master = FTMS.getInstance();
@@ -256,7 +258,7 @@ public class TestController {
 		// check model in memory
 		assertEquals(0, master.getSupplies().size());
 	}
-	
+
 	@Test
 	public void testCreateSupplyQuanityNotInteger(){
 		FTMS master = FTMS.getInstance();
@@ -276,7 +278,7 @@ public class TestController {
 		// check model in memory
 		assertEquals(0, master.getSupplies().size());
 	}
-	
+
 	@Test
 	public void testCreateStaff() {
 		FTMS master = FTMS.getInstance();
@@ -295,7 +297,7 @@ public class TestController {
 		// check file contents
 		checkResultStaff(name, role, master2);
 	}
-	
+
 	@Test
 	public void testCreateStaffNull(){
 		FTMS master = FTMS.getInstance();
@@ -314,7 +316,7 @@ public class TestController {
 		// check no change in memory
 		assertEquals(0, master.getStaffs().size());
 	}
-	
+
 	@Test
 	public void TestCreateStaffEmpty(){
 		FTMS master = FTMS.getInstance();
@@ -352,7 +354,7 @@ public class TestController {
 		// check model in memory
 		assertEquals(0, master.getStaffs().size());
 	}
-	
+
 	@Test
 	public void testCreateStaffOutOfRange(){
 		FTMS master = FTMS.getInstance();
@@ -371,7 +373,7 @@ public class TestController {
 		// check model in memory
 		assertEquals(0, master.getStaffs().size());
 	}
-	
+
 	@Test
 	public void testCreateMenuItem(){
 		FTMS master = FTMS.getInstance();
@@ -381,15 +383,15 @@ public class TestController {
 		Controller c = new Controller();
 		try {
 			c.createSupply("Tomato", "hi", "10");
-		} catch (InvalidInputException e1) {
+		} catch (InvalidInputException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e.printStackTrace();
 		}
 		try {
 			c.createSupply("Potato", "hi", "20");
-		} catch (InvalidInputException e1) {
+		} catch (InvalidInputException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e.printStackTrace();
 		}
 		ingredients.add(master.getSupply(0));
 		ingredients.add(master.getSupply(1));
@@ -404,7 +406,184 @@ public class TestController {
 		// check file contents
 		checkResultMenuItem(name, ingredients, master2);
 	}
-	
+
+	@Test
+	public void testCreateMenuItemNull(){
+		FTMS master = FTMS.getInstance();
+		assertEquals(0, master.getMenuItems().size());
+		String name = null;
+		ArrayList<Supply> ingredients = null;
+		String error = null;
+		Controller c = new Controller();
+		try{
+			c.createMenuItem(name, ingredients);
+		} catch (InvalidInputException e){
+			error = e.getMessage();
+		}
+		// check error
+		assertEquals("Menu item name cannot be empty! Menu item ingredients cannot be empty!", error);
+		assertEquals(0, master.getMenuItems().size());
+	}
+
+	@Test
+	public void testCreateMenuItemEmpty(){
+		FTMS master = FTMS.getInstance();
+		assertEquals(0, master.getMenuItems().size());
+		String name = "";
+		ArrayList<Supply> ingredients = new ArrayList<Supply>();
+		String error = null;
+		Controller c = new Controller();
+		try{
+			c.createMenuItem(name, ingredients);
+		} catch (InvalidInputException e){
+			error = e.getMessage();
+		}
+		// check error
+		assertEquals("Menu item name cannot be empty! Menu item ingredients cannot be empty!", error);
+		assertEquals(0, master.getMenuItems().size());
+	}
+
+	@Test
+	public void testCreateMenuItemSpaces(){
+		FTMS master = FTMS.getInstance();
+		assertEquals(0, master.getMenuItems().size());
+		String name = " ";
+		ArrayList<Supply> ingredients = new ArrayList<Supply>();
+		String error = null;
+		Controller c = new Controller();
+		try{
+			c.createMenuItem(name, ingredients);
+		} catch (InvalidInputException e){
+			error = e.getMessage();
+		}
+		// check error
+		assertEquals("Menu item name cannot be empty! Menu item ingredients cannot be empty!", error);
+		assertEquals(0, master.getMenuItems().size());
+	}
+
+	@Test
+	public void testCreateTimeBlock(){
+		FTMS master = FTMS.getInstance();
+		assertEquals(0, master.getStaffs().size());
+		Controller c = new Controller();
+		try {
+			c.createStaff("Hank", "Engineer");
+		} catch (InvalidInputException e) {
+			fail();
+		}
+		assertEquals(1, master.getStaffs().size());
+		assertEquals(0, master.getStaff(0).getTimeBlocks().size());
+		Staff staff = master.getStaff(0);
+		Calendar cal = Calendar.getInstance();
+		cal.set(2016, Calendar.OCTOBER, 31, 9, 00, 0);
+		Time startTime1 = new Time(cal.getTimeInMillis());
+		cal.set(2016, Calendar.OCTOBER, 31, 10, 00, 0);
+		Time endTime1 = new Time(cal.getTimeInMillis());
+		int dayOfWeek1 = 1;
+		cal.set(2016, Calendar.OCTOBER, 30, 10, 00, 0);
+		Time startTime2 = new Time(cal.getTimeInMillis());
+		cal.set(2016, Calendar.OCTOBER, 30, 11, 00, 0);
+		Time endTime2 = new Time(cal.getTimeInMillis());
+		int dayOfWeek2 = 3;
+		try {
+			c.createTimeBlock(startTime1, endTime1, dayOfWeek1, staff);
+			c.createTimeBlock(startTime2, endTime2, dayOfWeek2, staff);
+		} catch (InvalidInputException e) {
+			fail();
+		}
+		checkResultTimeBlock(startTime1, endTime1, dayOfWeek1, startTime2, endTime2, dayOfWeek2, staff, master);
+		FTMS master2 = (FTMS) PersistenceXStream.loadFromXMLwithXStream();
+		checkResultTimeBlock(startTime1, endTime1, dayOfWeek1, startTime2, endTime2, dayOfWeek2, staff, master2);
+	}
+
+	@Test
+	public void testCreateTimeBlockNull(){
+		FTMS master = FTMS.getInstance();
+		assertEquals(0, master.getStaffs().size());
+		Controller c = new Controller();
+		try {
+			c.createStaff("Hank", "Engineer");
+		} catch (InvalidInputException e) {
+			fail();
+		}
+		assertEquals(1, master.getStaffs().size());
+		assertEquals(0, master.getStaff(0).getTimeBlocks().size());
+		String error = null;
+		Staff staff = master.getStaff(0);
+		Time startTime = null;
+		Time endTime = null;
+		int dayOfWeek1 = 1;
+		try {
+			c.createTimeBlock(startTime, endTime, dayOfWeek1, staff);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		// check error
+		assertEquals("Time block start time cannot be empty! Time block end time cannot be empty!", error);
+		assertEquals(0, master.getStaff(0).getTimeBlocks().size());
+	}
+
+	@Test
+	public void testCreateTimeBlockEndTimeBeforeStartTime(){
+		FTMS master = FTMS.getInstance();
+		assertEquals(0, master.getStaffs().size());
+		Controller c = new Controller();
+		try {
+			c.createStaff("Hank", "Engineer");
+		} catch (InvalidInputException e) {
+			fail();
+		}
+		assertEquals(1, master.getStaffs().size());
+		assertEquals(0, master.getStaff(0).getTimeBlocks().size());
+		String error = null;
+		Staff staff = master.getStaff(0);
+		Calendar cal = Calendar.getInstance();
+		cal.set(2016, Calendar.OCTOBER, 31, 10, 00, 0);
+		Time startTime = new Time(cal.getTimeInMillis());
+		cal.set(2016, Calendar.OCTOBER, 31, 9, 00, 0);
+		Time endTime = new Time(cal.getTimeInMillis());
+		int dayOfWeek1 = 1;
+		try {
+			c.createTimeBlock(startTime, endTime, dayOfWeek1, staff);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		// check error
+		assertEquals("Time block end time cannot be before start time!", error);
+		assertEquals(0, master.getStaff(0).getTimeBlocks().size());
+	}
+
+	@Test
+	public void testCreateTimeBlockDayOfWeekOutOfRange(){
+		FTMS master = FTMS.getInstance();
+		assertEquals(0, master.getStaffs().size());
+		Controller c = new Controller();
+		try {
+			c.createStaff("Hank", "Engineer");
+		} catch (InvalidInputException e) {
+			fail();
+		}
+		assertEquals(1, master.getStaffs().size());
+		assertEquals(0, master.getStaff(0).getTimeBlocks().size());
+		String error = null;
+		Staff staff = master.getStaff(0);
+		Calendar cal = Calendar.getInstance();
+		cal.set(2016, Calendar.OCTOBER, 31, 9, 00, 0);
+		Time startTime = new Time(cal.getTimeInMillis());
+		cal.set(2016, Calendar.OCTOBER, 31, 10, 00, 0);
+		Time endTime = new Time(cal.getTimeInMillis());
+		int dayOfWeek1 = 12;
+		try {
+			c.createTimeBlock(startTime, endTime, dayOfWeek1, staff);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		// check error
+		assertEquals("Time block day of the week must be between Monday and Sunday!", error);
+		assertEquals(0, master.getStaff(0).getTimeBlocks().size());
+	}
+
+
 	public void checkResultEquipment(String name, String description, String quantity, FTMS master){
 		assertEquals(1, master.getEquipments().size());
 		assertEquals(name, master.getEquipment(0).getName());
@@ -418,17 +597,30 @@ public class TestController {
 		assertEquals(description, master.getSupply(0).getDescription());
 		assertEquals(quantity, Integer.toString(master.getSupply(0).getQuantity()));
 	}
-	
+
 	public void checkResultStaff(String name, String role, FTMS master){
 		assertEquals(1, master.getStaffs().size());
 		assertEquals(name, master.getStaff(0).getName());
 		assertEquals(role, master.getStaff(0).getRole());
 	}
-	
+
 	public void checkResultMenuItem(String name, ArrayList<Supply> ingredients, FTMS master){
+		assertEquals(2, master.getSupplies().size());
 		assertEquals(1, master.getMenuItems().size());
 		assertEquals(name, master.getMenuItem(0).getName());
 		assertEquals(ingredients.get(0).getName(), master.getMenuItem(0).getSupply(0).getName());
 		assertEquals(ingredients.get(1).getName(), master.getMenuItem(0).getSupply(1).getName());
+	}
+
+	public void checkResultTimeBlock(Time startTime1, Time endTime1, int dayOfWeek1, Time startTime2, Time endTime2, int dayOfWeek2, Staff staff, FTMS master){
+		assertEquals(1, master.getStaffs().size());
+		assertEquals(2, master.getStaff(0).getTimeBlocks().size());
+		assertEquals(staff.getClass(), master.getStaff(0).getClass());
+		assertEquals(startTime1.toString(), master.getStaff(0).getTimeBlock(0).getStartTime().toString());
+		assertEquals(endTime1.toString(), master.getStaff(0).getTimeBlock(0).getEndTime().toString());
+		assertEquals(dayOfWeek1, master.getStaff(0).getTimeBlock(0).getDayOfWeek());
+		assertEquals(startTime2.toString(), master.getStaff(0).getTimeBlock(1).getStartTime().toString());
+		assertEquals(endTime2.toString(), master.getStaff(0).getTimeBlock(1).getEndTime().toString());
+		assertEquals(dayOfWeek2, master.getStaff(0).getTimeBlock(1).getDayOfWeek());
 	}
 }
