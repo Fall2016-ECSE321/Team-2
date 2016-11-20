@@ -1,0 +1,64 @@
+<FTMS id="1">
+  <equipments id="2">
+    <equipment id="3">
+      <name>Knife</name>
+      <description></description>
+      <quantity>1</quantity>
+    </equipment>
+    <equipment id="4">
+      <name>Board</name>
+      <description></description>
+      <quantity>12</quantity>
+    </equipment>
+    <equipment id="5">
+      <name>Hat</name>
+      <description></description>
+      <quantity>32</quantity>
+    </equipment>
+    <equipment id="6">
+      <name>Bottle</name>
+      <description></description>
+      <quantity>3</quantity>
+    </equipment>
+    <equipment id="7">
+      <name>Pot</name>
+      <description></description>
+      <quantity>33</quantity>
+    </equipment>
+    <equipment id="8">
+      <name>Candle</name>
+      <description></description>
+      <quantity>30</quantity>
+    </equipment>
+    <equipment id="9">
+      <name>Fork</name>
+      <description></description>
+      <quantity>111</quantity>
+    </equipment>
+    <equipment id="10">
+      <name>Ali</name>
+      <description>OMG THIS IS WORKING</description>
+      <quantity>99</quantity>
+    </equipment>
+  </equipments>
+  <supplies id="11">
+    <supply id="12">
+      <name>Tomato</name>
+      <description></description>
+      <quantity>11</quantity>
+    </supply>
+    <supply id="13">
+      <name>Apple</name>
+      <description></description>
+      <quantity>5</quantity>
+    </supply>
+    <supply id="14">
+      <name>Kris</name>
+      <description>YAY I CAN GO HOME AND EAT NOW</description>
+      <quantity>2</quantity>
+    </supply>
+  </supplies>
+  <staffs id="15"/>
+  <orders id="16"/>
+  <menuItems id="17"/>
+</FTMS>

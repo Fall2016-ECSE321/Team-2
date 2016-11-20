@@ -7,6 +7,7 @@ import controller.InvalidInputException;
 import model.Equipment;
 import model.FTMS;
 import model.MenuItem;
+import model.Order;
 import model.Staff;
 import model.Supply;
 import model.TimeBlock;
@@ -190,6 +191,21 @@ public class Controller {
 			if(master.getStaff(x) == staff)
 				master.getStaff(x).addTimeBlock(timeBlock);
 		}
+		PersistenceXStream.saveToXMLwithXStream(master);
+	}
+	
+	public void createOrder(ArrayList<MenuItem> menuItems) throws InvalidInputException{
+		String error = "";
+		if(menuItems.isEmpty())
+			error += "You must select at least one menu item! ";
+		error = error.trim();
+		if(error.length() > 0)
+			throw new InvalidInputException(error);
+		Order order = new Order();
+		for(int x = 0; x < menuItems.size(); x++)
+			order.addMenuItem(menuItems.get(x));
+		FTMS master = FTMS.getInstance();
+		master.addOrder(order);
 		PersistenceXStream.saveToXMLwithXStream(master);
 	}
 }
