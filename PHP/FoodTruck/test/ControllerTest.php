@@ -3,6 +3,7 @@ require_once __DIR__.'/../controller/Controller.php';
 require_once __DIR__.'/../persistence/PersistenceFoodTruck.php';
 require_once __DIR__.'/../model/FTMS.php';
 require_once __DIR__.'/../model/Equipment.php';
+require_once __DIR__.'/../model/Supply.php';
 
 
 class ControllerTest extends PHPUnit_Framework_TestCase
@@ -42,10 +43,12 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(1, count($this->ftms->getEquipment()));
 		$this->assertEquals($name, $this->ftms->getEquipment_index(0)->getName());
 		$this->assertEquals($quantity, $this->ftms->getEquipment_index(0)->getQuantity());
+		
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
 // 		$this->assertEquals(0, count($this->ftms->getEvents()));
 // 		$this->assertEquals(0, count($this->ftms->getRegistrations()));
 	}
-	public function testCreateEquipmentNameNull() {
+	public function testCreateEquipmentNull() {
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
 	
 		$name = null;
@@ -63,10 +66,11 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$this->ftms = $this->pm->loadDataFromStore();
 		
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
 // 		$this->assertEquals(0, count($this->rm->getEvents()));
 // 		$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
-	public function testCreateEquipmentNameEmpty() {
+	public function testCreateEquipmentEmpty() {
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
 	
 		$name = "";
@@ -83,6 +87,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		// check file contents
 		$this->ftms = $this->pm->loadDataFromStore();
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
 		// 		$this->assertEquals(0, count($this->rm->getEvents()));
 		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
@@ -105,6 +110,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$this->ftms = $this->pm->loadDataFromStore();
 	
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
 		// 		$this->assertEquals(0, count($this->rm->getEvents()));
 		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
@@ -126,6 +132,121 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		// check file contents
 		$this->ftms = $this->pm->loadDataFromStore();
 	
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		// 		$this->assertEquals(0, count($this->rm->getEvents()));
+		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+	}
+	//**
+	public function testCreateSupply() {
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+	
+		$name = "Cucumber";
+		$quantity = "3";
+	
+		try {
+			$this->c->createSupply($name,$quantity);
+		} catch (Exception $e) {
+			// check that no error occurred
+			$this->fail();
+		}
+	
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+		$this->assertEquals(1, count($this->ftms->getSupplies()));
+		$this->assertEquals($name, $this->ftms->getSupply_index(0)->getName());
+		$this->assertEquals($quantity, $this->ftms->getSupply_index(0)->getQuantity());
+		
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		// 		$this->assertEquals(0, count($this->ftms->getEvents()));
+		// 		$this->assertEquals(0, count($this->ftms->getRegistrations()));
+	}
+	public function testCreateSupplyNull() {
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+	
+		$name = null;
+		$quantity = null;
+		$error = "";
+		try {
+			$this->c->createSupply($name,$quantity);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+	
+		// check error
+		$this->assertEquals("@1Supply name cannot be empty! @2Supply quantity cannot be empty!", $error);
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+	
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		// 		$this->assertEquals(0, count($this->rm->getEvents()));
+		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+	}
+	public function testCreateSupplyEmpty() {
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+	
+		$name = "";
+		$quantity ="";
+		$error = "";
+		try {
+			$this->c->createSupply($name,$quantity);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+	
+		// check error
+		$this->assertEquals("@1Supply name cannot be empty! @2Supply quantity cannot be empty!", $error);
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+		
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		// 		$this->assertEquals(0, count($this->rm->getEvents()));
+		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+	}
+	
+	public function testCreateSupplyQuantityNotInt() {
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+	
+		$name = "Cucumber";
+		$quantity = "hello";
+		$error = "";
+		try {
+			$this->c->createSupply($name,$quantity);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+	
+		// check error
+		$this->assertEquals("@2Supply quantity must be a positive integer!", $error);
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+	
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		// 		$this->assertEquals(0, count($this->rm->getEvents()));
+		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+	}
+	
+	public function testCreateSupplyQuantityNegative() {
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+	
+		$name = "Cucumber";
+		$quantity = -4;
+		$error = "";
+		try {	
+			$this->c->createSupply($name,$quantity);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+	
+		// check error
+		$this->assertEquals("@2Supply quantity must be a positive integer!", $error);
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+	
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
 		// 		$this->assertEquals(0, count($this->rm->getEvents()));
 		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
