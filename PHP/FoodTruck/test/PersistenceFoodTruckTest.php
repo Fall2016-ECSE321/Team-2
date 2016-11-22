@@ -3,7 +3,7 @@ require_once __DIR__.'/../persistence/PersistenceFoodTruck.php';
 require_once __DIR__.'/../model/FTMS.php';
 require_once __DIR__.'/../model/Equipment.php';
 require_once __DIR__.'/../model/Supply.php';
-
+require_once __DIR__.'/../model/Staff.php';
 
 class PersistenceFoodTruckManagement extends PHPUnit_Framework_TestCase
 {
@@ -25,6 +25,10 @@ class PersistenceFoodTruckManagement extends PHPUnit_Framework_TestCase
 		//create supply
 		$supply = new Supply("Tomatoes",4);
 		$ftms->addSupply($supply);
+		//create staff
+		$staff = new Staff("Emma","waitress");
+		$ftms->addStaff($staff);
+		
 		
 		// 2. Write all of the data
 		$this->pm->writeDataToStore($ftms);
@@ -34,6 +38,7 @@ class PersistenceFoodTruckManagement extends PHPUnit_Framework_TestCase
 		
 		$this->assertEquals(0,count($ftms->getEquipment()));
 		$this->assertEquals(0,count($ftms->getSupplies()));
+		$this->assertEquals(0,count($ftms->getStaffs()));
 		
 		
 		//4. Load it back in 
@@ -50,6 +55,11 @@ class PersistenceFoodTruckManagement extends PHPUnit_Framework_TestCase
 		$mySupply = $ftms->getSupply_index(0);
 		$this->assertEquals("Tomatoes",$mySupply->getName());
 		$this->assertEquals(4,$mySupply->getQuantity());
+		//check staff
+		$this->assertEquals(1,count($ftms->getStaffs()));
+		$myStaff = $ftms->getStaff_index(0);
+		$this->assertEquals("Emma",$myStaff->getName());
+		$this->assertEquals("waitress",$myStaff->getRole());
 		
 	}
 }

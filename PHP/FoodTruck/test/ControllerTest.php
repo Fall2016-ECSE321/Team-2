@@ -4,8 +4,9 @@ require_once __DIR__.'/../persistence/PersistenceFoodTruck.php';
 require_once __DIR__.'/../model/FTMS.php';
 require_once __DIR__.'/../model/Equipment.php';
 require_once __DIR__.'/../model/Supply.php';
+require_once __DIR__.'/../model/Staff.php';
 
-
+//TODO: refactor the check if empty ones to a method
 class ControllerTest extends PHPUnit_Framework_TestCase
 {
 	protected $c;
@@ -45,6 +46,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($quantity, $this->ftms->getEquipment_index(0)->getQuantity());
 		
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
 // 		$this->assertEquals(0, count($this->ftms->getEvents()));
 // 		$this->assertEquals(0, count($this->ftms->getRegistrations()));
 	}
@@ -67,6 +69,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
 // 		$this->assertEquals(0, count($this->rm->getEvents()));
 // 		$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
@@ -88,6 +91,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$this->ftms = $this->pm->loadDataFromStore();
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
 		// 		$this->assertEquals(0, count($this->rm->getEvents()));
 		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
@@ -111,6 +115,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
 		// 		$this->assertEquals(0, count($this->rm->getEvents()));
 		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
@@ -134,6 +139,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
 		// 		$this->assertEquals(0, count($this->rm->getEvents()));
 		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
@@ -158,6 +164,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($quantity, $this->ftms->getSupply_index(0)->getQuantity());
 		
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
 		// 		$this->assertEquals(0, count($this->ftms->getEvents()));
 		// 		$this->assertEquals(0, count($this->ftms->getRegistrations()));
 	}
@@ -180,6 +187,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
 		// 		$this->assertEquals(0, count($this->rm->getEvents()));
 		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
@@ -202,6 +210,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
 		// 		$this->assertEquals(0, count($this->rm->getEvents()));
 		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
@@ -225,6 +234,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
 		// 		$this->assertEquals(0, count($this->rm->getEvents()));
 		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
@@ -246,6 +256,79 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		// check file contents
 		$this->ftms = $this->pm->loadDataFromStore();
 	
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+	
+		// 		$this->assertEquals(0, count($this->rm->getEvents()));
+		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+	}
+	//**
+	public function testCreateStaff() {
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+	
+		$name = "Jenny";
+		$role = "Cook";
+	
+		try {
+			$this->c->createStaff($name,$role);
+		} catch (Exception $e) {
+			// check that no error occurred
+			$this->fail();
+		}
+	
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+		$this->assertEquals(1, count($this->ftms->getStaffs()));
+		$this->assertEquals($name, $this->ftms->getStaff_index(0)->getName());
+		$this->assertEquals($role, $this->ftms->getStaff_index(0)->getRole());
+	
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		// 		$this->assertEquals(0, count($this->ftms->getEvents()));
+		// 		$this->assertEquals(0, count($this->ftms->getRegistrations()));
+	}
+	public function testCreateStaffNull() {
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+	
+		$name = null;
+		$role = null;
+		$error = "";
+		try {
+			$this->c->createStaff($name,$role);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+	
+		// check error
+		$this->assertEquals("@1Staff name cannot be empty! @2Staff role cannot be empty!", $error);
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+		
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		//this->assertEquals(0, count($this->rm->getEvents()));
+		//$this->assertEquals(0, count($this->rm->getRegistrations()));
+	}
+	public function testCreateStaffEmpty() {
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+	
+		$name = "";
+		$role ="";
+		$error = "";
+		try {
+			$this->c->createStaff($name,$role);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+	
+		// check error
+		$this->assertEquals("@1Staff name cannot be empty! @2Staff role cannot be empty!", $error);
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+	
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
 		// 		$this->assertEquals(0, count($this->rm->getEvents()));

@@ -53,7 +53,7 @@ class Controller{
 			$pm = new PersistenceFoodTruck();
 			$rm = $pm->loadDataFromStore();
 	
-			//3. Add the new Equipment
+			//3. Add the new Supply
 			$supply = new Supply($name,intval($quantity));
 			$rm->addSupply($supply);
 	
@@ -70,6 +70,34 @@ class Controller{
 			else if (!$isInt) {
 				$error .= "@2Supply quantity must be a positive integer! ";
 			}
+			throw new Exception(trim($error));
+		}
+	}
+	public function createStaff($staff_name, $staff_role){
+		//1. Validate input
+		$error = "";
+		$name = InputValidator::validate_input($staff_name);
+		$role = InputValidator::validate_input($staff_role);
+		if ($name!=null && strlen($name)!=0 && $role!=null && strlen($role)!=0){
+			//2. load all of the data
+			$pm = new PersistenceFoodTruck();
+			$rm = $pm->loadDataFromStore();
+	
+			//3. Add the new Staff
+			$staff = new Staff($name,$role);
+			$rm->addStaff($staff);
+	
+			//4. Write all of the data
+			$pm->writeDataToStore($rm);
+		}
+		else {
+			if ($name == null || strlen($name)==0) {
+				$error .= "@1Staff name cannot be empty! ";
+			}
+			if ($role == null || strlen($role) ==0) {
+				$error .= "@2Staff role cannot be empty! ";
+			}
+			
 			throw new Exception(trim($error));
 		}
 	}
