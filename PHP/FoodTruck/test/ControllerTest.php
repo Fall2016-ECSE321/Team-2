@@ -4,13 +4,14 @@ require_once __DIR__.'/../persistence/PersistenceFoodTruck.php';
 require_once __DIR__.'/../model/FTMS.php';
 require_once __DIR__.'/../model/Equipment.php';
 require_once __DIR__.'/../model/Supply.php';
+require_once __DIR__.'/../model/TimeBlock.php';
 require_once __DIR__.'/../model/Staff.php';
 require_once __DIR__.'/../model/MenuItem.php';
 require_once __DIR__.'/../model/Order.php';
 
 
 //TODO: refactor the check if empty ones to a method
-//TODO: add the check for empty test cases
+//TODO: add maybe the space test case
 
 class ControllerTest extends PHPUnit_Framework_TestCase
 {
@@ -267,6 +268,107 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// 		$this->assertEquals(0, count($this->rm->getEvents()));
 		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+	}
+	//**
+	public function testCreateTimeBlock() {
+		$this->assertEquals(0, count($this->ftms->getTimeBlocks()));
+	
+		$day = "Monday";
+		$starttime = "09:00";
+		$endtime = "10:30";
+		 
+		try {
+			$this->c->createTimeBlock($starttime, $endtime, $day);
+		} catch (Exception $e) {
+			// check that no error occurred
+			$this->fail();
+		}
+		 
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+		$this->assertEquals(1, count($this->ftms->getTimeBlock_index(0)));
+		$this->assertEquals($day, $this->ftms->getTimeBlock_index(0)->getDayOfWeek());
+		$this->assertEquals($starttime, $this->ftms->getTimeBlock_index(0)->getStartTime());
+		$this->assertEquals($endtime, $this->ftms->getTimeBlock_index(0)->getEndTime());
+
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+	}
+	
+	public function testCreateTimeBlockNull() {
+		$this->assertEquals(0, count($this->ftms->getTimeBlocks()));
+	
+		$day = null;
+		$starttime = null;
+		$endtime = null;
+	
+		$error = "";
+		try {
+			$this->c->createTimeBlock($starttime, $endtime, $day);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+	
+		// check error
+		$this->assertEquals("@1Time block day of the week cannot be empty! @2Time block start time must be specified correctly (HH:MM)! @3Time block end time must be specified correctly (HH:MM)!", $error);
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+		
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+		$this->assertEquals(0, count($this->ftms->getTimeBlocks()));
+		
+	}
+	
+	public function testCreateTimeBlockEmpty() {
+			$this->assertEquals(0, count($this->ftms->getTimeBlocks()));
+	
+		$day = "";
+		$starttime = "";
+		$endtime = "";
+	
+		$error = "";
+		try {
+			$this->c->createTimeBlock($starttime, $endtime, $day);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+	
+		// check error
+		$this->assertEquals("@1Time block day of the week cannot be empty! @2Time block start time must be specified correctly (HH:MM)! @3Time block end time must be specified correctly (HH:MM)!", $error);
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+		
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+		$this->assertEquals(0, count($this->ftms->getTimeBlocks()));
+	}
+	public function testCreateTimeBlockEndTimeBeforeStartTime() {
+		$this->assertEquals(0, count($this->ftms->getTimeBlocks()));
+	
+		$day = "Monday";
+		$starttime = "09:00";
+		$endtime = "08:59";
+	
+		$error = "";
+		try {
+			$this->c->createTimeBlock($starttime, $endtime,$day);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+	
+		// check error
+		$this->assertEquals("@3Time block end time cannot be before event start time!", $error);
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+		
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+		$this->assertEquals(0, count($this->ftms->getTimeBlocks()));
 	}
 	//**
 	public function testCreateStaff() {

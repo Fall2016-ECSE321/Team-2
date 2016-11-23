@@ -73,6 +73,42 @@ class Controller{
 			throw new Exception(trim($error));
 		}
 	}
+	public function createTimeBlock($block_starttime, $block_endtime, $block_dayofweek){
+		//1. Validate input
+		$error = "";
+		$day = InputValidator::validate_input($block_dayofweek);
+		$s = preg_match("/(2[0-3]|[01][0-9]):([0-5][0-9])/", $block_starttime);
+		$e = preg_match("/(2[0-3]|[01][0-9]):([0-5][0-9])/", $block_endtime);
+	
+		if ($day != null && strlen($day)!= 0 && $s && $e && $block_starttime<=$block_endtime){
+			//2. load all of the data
+			$pm = new PersistenceFoodTruck();
+			$rm = $pm->loadDataFromStore();
+	
+			//3. Add the new time block
+			$timeblock = new TimeBlock($block_starttime, $block_endtime, $day);
+			$rm->addTimeBlock($timeblock);
+	
+			//4. Write all of the data
+			$pm->writeDataToStore($rm);
+		}
+		else{
+			if($day == null || strlen($day) ==0){
+				$error .= "@1Time block day of the week cannot be empty! ";
+			}
+			if (!$s){
+				$error .= "@2Time block start time must be specified correctly (HH:MM)! ";
+			}
+			if (!$e) {
+				$error .= "@3Time block end time must be specified correctly (HH:MM)! ";
+			}
+			if ($block_endtime < $block_starttime){
+				$error .= "@3Time block end time cannot be before event start time! ";
+			}
+			throw new Exception(trim($error));
+		}
+	}
+	
 	public function createStaff($staff_name, $staff_role){
 		//1. Validate input
 		$error = "";

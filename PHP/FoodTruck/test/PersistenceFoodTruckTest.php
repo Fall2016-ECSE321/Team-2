@@ -3,6 +3,7 @@ require_once __DIR__.'/../persistence/PersistenceFoodTruck.php';
 require_once __DIR__.'/../model/FTMS.php';
 require_once __DIR__.'/../model/Equipment.php';
 require_once __DIR__.'/../model/Supply.php';
+require_once __DIR__.'/../model/TimeBlock.php';
 require_once __DIR__.'/../model/Staff.php';
 require_once __DIR__.'/../model/MenuItem.php';
 require_once __DIR__.'/../model/Order.php';
@@ -27,6 +28,12 @@ class PersistenceFoodTruckManagement extends PHPUnit_Framework_TestCase
 		//create supply
 		$supply = new Supply("Tomatoes",4);
 		$ftms->addSupply($supply);
+		//create timeblock
+		$dayTB = "Monday";
+		$starttimeTB = "09:00";
+		$endtimeTB = "10:30";
+		$timeblock = new TimeBlock($starttimeTB, $endtimeTB, $dayTB);
+		$ftms->addTimeBlock($timeblock);
 		//create staff
 		$staff = new Staff("Emma","waitress");
 		$ftms->addStaff($staff);
@@ -47,6 +54,7 @@ class PersistenceFoodTruckManagement extends PHPUnit_Framework_TestCase
 		
 		$this->assertEquals(0,count($ftms->getEquipment()));
 		$this->assertEquals(0,count($ftms->getSupplies()));
+		$this->assertEquals(0,count($ftms->getTimeBlocks()));
 		$this->assertEquals(0,count($ftms->getStaffs()));
 		$this->assertEquals(0,count($ftms->getMenuItems()));
 		$this->assertEquals(0,count($ftms->getOrders()));
@@ -65,6 +73,12 @@ class PersistenceFoodTruckManagement extends PHPUnit_Framework_TestCase
 		$mySupply = $ftms->getSupply_index(0);
 		$this->assertEquals("Tomatoes",$mySupply->getName());
 		$this->assertEquals(4,$mySupply->getQuantity());
+		//check timeblock
+		$this->assertEquals(1,count($ftms->getTimeBlocks()));
+		$myTimeBlock = $ftms->getTimeBlock_index(0);
+		$this->assertEquals($starttimeTB,$myTimeBlock->getStartTime());
+		$this->assertEquals($endtimeTB,$myTimeBlock->getEndTime());
+		$this->assertEquals($dayTB,$myTimeBlock->getDayOfWeek());
 		//check staff
 		$this->assertEquals(1,count($ftms->getStaffs()));
 		$myStaff = $ftms->getStaff_index(0);
