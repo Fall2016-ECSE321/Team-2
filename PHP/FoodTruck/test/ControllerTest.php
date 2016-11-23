@@ -5,8 +5,12 @@ require_once __DIR__.'/../model/FTMS.php';
 require_once __DIR__.'/../model/Equipment.php';
 require_once __DIR__.'/../model/Supply.php';
 require_once __DIR__.'/../model/Staff.php';
+require_once __DIR__.'/../model/MenuItem.php';
+
 
 //TODO: refactor the check if empty ones to a method
+//TODO: add the check for empty test cases
+
 class ControllerTest extends PHPUnit_Framework_TestCase
 {
 	protected $c;
@@ -334,6 +338,70 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		// 		$this->assertEquals(0, count($this->rm->getEvents()));
 		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
+	//***
+	public function testCreateMenuItem() {
+		$this->assertEquals(0, count($this->ftms->getMenuItems()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		
+		//first createa supply to link to menu item
+		$nameS = "Broth";
+		$quantityS = 4;
+		try {
+			$this->c->createSupply($nameS,$quantityS);
+		} catch (Exception $e) {
+			$this->fail();
+		}
+		//create menu item to test
+		$name = "Soup";
+		$supplies = array($nameS);
+		try {
+			$this->c->createMenuItem($name,$supplies);
+		} catch (Exception $e) {
+			// check that no error occurred
+			$this->fail();
+		}
+	
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+		$this->assertEquals(1, count($this->ftms->getMenuItems()));
+		$this->assertEquals(1, count($this->ftms->getSupplies()));
+		$this->assertEquals($nameS, $this->ftms->getSupply_index(0)->getName());
+		$this->assertEquals($quantityS, $this->ftms->getSupply_index(0)->getQuantity());
+		$this->assertEquals($name, $this->ftms->getMenuItem_index(0)->getName());
+		$this->assertEquals($this->ftms->getSupply_index(0), $this->ftms->getMenuItem_index(0)->getSupply_index(0));
+		
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+		// 		$this->assertEquals(0, count($this->ftms->getEvents()));
+		// 		$this->assertEquals(0, count($this->ftms->getRegistrations()));
+	}
+ 	public function testCreateMenuItemNull() {
+		$this->assertEquals(0, count($this->ftms->getMenuItems()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		
+		$name = null;
+		$supplies = array(null);
+		$error = "";
+		try {
+			$this->c->createMenuItem($name,$supplies);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+	
+		// check error
+		$this->assertEquals("@1Menu item name cannot be empty! @2Menu item ingredient not found!", $error);
+		
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+	
+		$this->assertEquals(0, count($this->ftms->getMenuItems()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		//this->assertEquals(0, count($this->rm->getEvents()));
+		//$this->assertEquals(0, count($this->rm->getRegistrations()));
+	}
+	//TODO: do we need to add supply not found? since its going to be a slider?
 	
 }
 

@@ -9,7 +9,7 @@ class Controller{
 	public function __construct(){
 
 	}
-
+//TODO: length evaluation (string less than 50 etc)
 	public function createEquipment($equipment_name, $equipment_quantity){
 		//1. Validate input
 		$error = "";
@@ -98,6 +98,55 @@ class Controller{
 				$error .= "@2Staff role cannot be empty! ";
 			}
 			
+			throw new Exception(trim($error));
+		}
+	}
+	
+	public function createMenuItem($item_name, $item_supplies){	
+		//3. load all of the data
+		$pm = new PersistenceFoodTruck();
+		$rm = $pm -> loadDataFromStore();
+		
+		//1. Validate input
+		$error = "";
+		$name = InputValidator::validate_input($item_name);
+		//2. Find supplies
+		$is_supplies = False;
+		foreach ($rm->getSupplies() as $supply){
+			foreach ($item_supplies as $key => $supplyName){
+				$item_supplies[$key] = InputValidator::validate_input($supplyName);
+				if (strcmp($supply->getName(), $supplyName)==0){
+					$is_supplies = True;
+					break;
+				}
+			}
+		}
+		
+		if ($name!=null && strlen($name)!=0 && $is_supplies){
+			//4. Add the new Menu Item
+			$menuItem = new MenuItem($name);
+			
+			//5. Link supplies to Menu Item
+			foreach ($rm->getSupplies() as $supply){
+				foreach ($item_supplies as $supplyName){
+					if (strcmp($supply->getName(), $supplyName)==0){
+						$menuItem->addSupply($supply);
+					}
+				}
+			}
+			$rm->addMenuItem($menuItem);
+	
+			//5. Write all of the data
+			$pm->writeDataToStore($rm);
+		}
+		else {
+			if ($name == null || strlen($name)==0) {
+				$error .= "@1Menu item name cannot be empty! ";
+			}
+			if (!$is_supplies) {
+				$error .= "@2Menu item ingredient not found! ";
+			}
+				
 			throw new Exception(trim($error));
 		}
 	}
