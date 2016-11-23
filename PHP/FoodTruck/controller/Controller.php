@@ -103,14 +103,15 @@ class Controller{
 	}
 	
 	public function createMenuItem($item_name, $item_supplies){	
-		//3. load all of the data
+		//1. load all of the data
 		$pm = new PersistenceFoodTruck();
 		$rm = $pm -> loadDataFromStore();
 		
-		//1. Validate input
+		//2. Validate input
 		$error = "";
 		$name = InputValidator::validate_input($item_name);
-		//2. Find supplies
+		
+		//3. Find supplies
 		$is_supplies = False;
 		foreach ($rm->getSupplies() as $supply){
 			foreach ($item_supplies as $key => $supplyName){
@@ -126,7 +127,7 @@ class Controller{
 			//4. Add the new Menu Item
 			$menuItem = new MenuItem($name);
 			
-			//5. Link supplies to Menu Item
+			//5. Find supplies again and link to Menu Item
 			foreach ($rm->getSupplies() as $supply){
 				foreach ($item_supplies as $supplyName){
 					if (strcmp($supply->getName(), $supplyName)==0){
@@ -136,7 +137,7 @@ class Controller{
 			}
 			$rm->addMenuItem($menuItem);
 	
-			//5. Write all of the data
+			//6. Write all of the data
 			$pm->writeDataToStore($rm);
 		}
 		else {
