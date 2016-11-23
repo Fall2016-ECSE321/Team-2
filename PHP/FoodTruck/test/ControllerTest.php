@@ -272,13 +272,25 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	//**
 	public function testCreateTimeBlock() {
 		$this->assertEquals(0, count($this->ftms->getTimeBlocks()));
-	
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+		
+		//first create staff to add timeblock
+		$nameS = "Jenny";
+		$roleS = "Cook";
+		
+		try {
+			$this->c->createStaff($nameS,$roleS);
+		} catch (Exception $e) {
+			// check that no error occurred
+			$this->fail();
+		}
+		
 		$day = "Monday";
 		$starttime = "09:00";
 		$endtime = "10:30";
 		 
 		try {
-			$this->c->createTimeBlock($starttime, $endtime, $day);
+			$this->c->createTimeBlock($starttime, $endtime, $day,$nameS);
 		} catch (Exception $e) {
 			// check that no error occurred
 			$this->fail();
@@ -287,13 +299,14 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		// check file contents
 		$this->ftms = $this->pm->loadDataFromStore();
 		$this->assertEquals(1, count($this->ftms->getTimeBlock_index(0)));
+		$this->assertEquals(1, count($this->ftms->getStaff_index(0)));
 		$this->assertEquals($day, $this->ftms->getTimeBlock_index(0)->getDayOfWeek());
 		$this->assertEquals($starttime, $this->ftms->getTimeBlock_index(0)->getStartTime());
 		$this->assertEquals($endtime, $this->ftms->getTimeBlock_index(0)->getEndTime());
+		$this->assertEquals($this->ftms->getTimeBlock_index(0), $this->ftms->getStaff_index(0)->getTimeBlock_index(0));
 
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
 	}
 	
 	public function testCreateTimeBlockNull() {
@@ -302,16 +315,17 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$day = null;
 		$starttime = null;
 		$endtime = null;
+		$staffname = null;
 	
 		$error = "";
 		try {
-			$this->c->createTimeBlock($starttime, $endtime, $day);
+			$this->c->createTimeBlock($starttime, $endtime, $day, $staffname);
 		} catch (Exception $e) {
 			$error = $e->getMessage();
 		}
 	
 		// check error
-		$this->assertEquals("@1Time block day of the week cannot be empty! @2Time block start time must be specified correctly (HH:MM)! @3Time block end time must be specified correctly (HH:MM)!", $error);
+		$this->assertEquals("@1Time block day of the week cannot be empty! @2Time block start time must be specified correctly (HH:MM)! @3Time block end time must be specified correctly (HH:MM)! @4Staff not found!", $error);
 		// check file contents
 		$this->ftms = $this->pm->loadDataFromStore();
 		
@@ -328,16 +342,17 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$day = "";
 		$starttime = "";
 		$endtime = "";
+		$staffname = "";
 	
 		$error = "";
 		try {
-			$this->c->createTimeBlock($starttime, $endtime, $day);
+			$this->c->createTimeBlock($starttime, $endtime, $day, $staffname);
 		} catch (Exception $e) {
 			$error = $e->getMessage();
 		}
 	
 		// check error
-		$this->assertEquals("@1Time block day of the week cannot be empty! @2Time block start time must be specified correctly (HH:MM)! @3Time block end time must be specified correctly (HH:MM)!", $error);
+		$this->assertEquals("@1Time block day of the week cannot be empty! @2Time block start time must be specified correctly (HH:MM)! @3Time block end time must be specified correctly (HH:MM)! @4Staff not found!", $error);
 		// check file contents
 		$this->ftms = $this->pm->loadDataFromStore();
 		
@@ -348,14 +363,25 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	}
 	public function testCreateTimeBlockEndTimeBeforeStartTime() {
 		$this->assertEquals(0, count($this->ftms->getTimeBlocks()));
-	
+		
+		//first create staff to add timeblock
+		$nameS = "Jenny";
+		$roleS = "Cook";
+		
+		try {
+			$this->c->createStaff($nameS,$roleS);
+		} catch (Exception $e) {
+			// check that no error occurred
+			$this->fail();
+		}
+		
 		$day = "Monday";
 		$starttime = "09:00";
 		$endtime = "08:59";
 	
 		$error = "";
 		try {
-			$this->c->createTimeBlock($starttime, $endtime,$day);
+			$this->c->createTimeBlock($starttime, $endtime,$day,$nameS);
 		} catch (Exception $e) {
 			$error = $e->getMessage();
 		}
@@ -364,10 +390,10 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals("@3Time block end time cannot be before event start time!", $error);
 		// check file contents
 		$this->ftms = $this->pm->loadDataFromStore();
-		
+	
+		$this->assertEquals(1, count($this->ftms->getStaffs()));
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
 		$this->assertEquals(0, count($this->ftms->getTimeBlocks()));
 	}
 	//**

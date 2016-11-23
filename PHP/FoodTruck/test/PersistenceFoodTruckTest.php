@@ -35,7 +35,9 @@ class PersistenceFoodTruckManagement extends PHPUnit_Framework_TestCase
 		$timeblock = new TimeBlock($starttimeTB, $endtimeTB, $dayTB);
 		$ftms->addTimeBlock($timeblock);
 		//create staff
-		$staff = new Staff("Emma","waitress");
+		$nameStaff = "Emma";
+		$staff = new Staff($nameStaff,"waitress");
+		$staff->addTimeBlock($timeblock);
 		$ftms->addStaff($staff);
 		//create menu item
 		$menuItem = new MenuItem("pizza");
@@ -54,8 +56,8 @@ class PersistenceFoodTruckManagement extends PHPUnit_Framework_TestCase
 		
 		$this->assertEquals(0,count($ftms->getEquipment()));
 		$this->assertEquals(0,count($ftms->getSupplies()));
-		$this->assertEquals(0,count($ftms->getTimeBlocks()));
 		$this->assertEquals(0,count($ftms->getStaffs()));
+		$this->assertEquals(0,count($ftms->getTimeBlocks()));
 		$this->assertEquals(0,count($ftms->getMenuItems()));
 		$this->assertEquals(0,count($ftms->getOrders()));
 		
@@ -84,6 +86,7 @@ class PersistenceFoodTruckManagement extends PHPUnit_Framework_TestCase
 		$myStaff = $ftms->getStaff_index(0);
 		$this->assertEquals("Emma",$myStaff->getName());
 		$this->assertEquals("waitress",$myStaff->getRole());
+		$this->assertEquals($myTimeBlock,$myStaff->getTimeBlock_index(0));
 		//check menuItem
 		$this->assertEquals(1,count($ftms->getMenuItems()));
 		$myMenuItem = $ftms->getMenuItem_index(0);

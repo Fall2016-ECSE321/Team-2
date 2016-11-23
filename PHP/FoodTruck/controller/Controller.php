@@ -73,51 +73,19 @@ class Controller{
 			throw new Exception(trim($error));
 		}
 	}
-	public function createTimeBlock($block_starttime, $block_endtime, $block_dayofweek){
-		//1. Validate input
-		$error = "";
-		$day = InputValidator::validate_input($block_dayofweek);
-		$s = preg_match("/(2[0-3]|[01][0-9]):([0-5][0-9])/", $block_starttime);
-		$e = preg_match("/(2[0-3]|[01][0-9]):([0-5][0-9])/", $block_endtime);
-	
-		if ($day != null && strlen($day)!= 0 && $s && $e && $block_starttime<=$block_endtime){
-			//2. load all of the data
-			$pm = new PersistenceFoodTruck();
-			$rm = $pm->loadDataFromStore();
-	
-			//3. Add the new time block
-			$timeblock = new TimeBlock($block_starttime, $block_endtime, $day);
-			$rm->addTimeBlock($timeblock);
-	
-			//4. Write all of the data
-			$pm->writeDataToStore($rm);
-		}
-		else{
-			if($day == null || strlen($day) ==0){
-				$error .= "@1Time block day of the week cannot be empty! ";
-			}
-			if (!$s){
-				$error .= "@2Time block start time must be specified correctly (HH:MM)! ";
-			}
-			if (!$e) {
-				$error .= "@3Time block end time must be specified correctly (HH:MM)! ";
-			}
-			if ($block_endtime < $block_starttime){
-				$error .= "@3Time block end time cannot be before event start time! ";
-			}
-			throw new Exception(trim($error));
-		}
-	}
-	
+
 	public function createStaff($staff_name, $staff_role){
 		//1. Validate input
 		$error = "";
 		$name = InputValidator::validate_input($staff_name);
 		$role = InputValidator::validate_input($staff_role);
+		
+		//2. load all of the data
+		$pm = new PersistenceFoodTruck();
+		$rm = $pm->loadDataFromStore();
+		
 		if ($name!=null && strlen($name)!=0 && $role!=null && strlen($role)!=0){
-			//2. load all of the data
-			$pm = new PersistenceFoodTruck();
-			$rm = $pm->loadDataFromStore();
+			
 	
 			//3. Add the new Staff
 			$staff = new Staff($name,$role);
@@ -138,6 +106,57 @@ class Controller{
 		}
 	}
 	
+	public function createTimeBlock($block_starttime, $block_endtime, $block_dayofweek,$block_staff){
+		//1. Validate input
+		$error = "";
+		$day = InputValidator::validate_input($block_dayofweek);
+		$s = preg_match("/(2[0-3]|[01][0-9]):([0-5][0-9])/", $block_starttime);
+		$e = preg_match("/(2[0-3]|[01][0-9]):([0-5][0-9])/", $block_endtime);
+		
+		//2. load all of the data
+		$pm = new PersistenceFoodTruck();
+		$rm = $pm->loadDataFromStore();
+		
+		//3. Find staff
+		$myKey = -1;
+		foreach ($rm->getStaffs() as $key => $staff){
+			if (strcmp($staff->getName(), $block_staff)==0){
+				$myKey = $key;
+				break;
+			}
+		}
+		
+		if ($day != null && strlen($day)!= 0 && $s && $e && $block_starttime<=$block_endtime && $myKey != -1){
+			//4. Add the new time block
+			$timeblock = new TimeBlock($block_starttime, $block_endtime, $day);
+			$rm->addTimeBlock($timeblock);
+			
+			//5. Add time block to staff
+			$rm->getStaff_index($myKey)->addTimeBlock($timeblock);	
+			
+			//6. Write all of the data
+			$pm->writeDataToStore($rm);
+		}
+		else{
+			if($day == null || strlen($day) ==0){
+				$error .= "@1Time block day of the week cannot be empty! ";
+			}
+			if (!$s){
+				$error .= "@2Time block start time must be specified correctly (HH:MM)! ";
+			}
+			if (!$e) {
+				$error .= "@3Time block end time must be specified correctly (HH:MM)! ";
+			}
+			if ($block_endtime < $block_starttime){
+				$error .= "@3Time block end time cannot be before event start time! ";
+			}
+			if($myKey == -1){
+				$error .= "@4Staff not found! ";
+			}
+			throw new Exception(trim($error));
+		}
+	}
+	
 	public function createMenuItem($item_name, $item_supplies){	
 		//1. load all of the data
 		$pm = new PersistenceFoodTruck();
@@ -150,7 +169,7 @@ class Controller{
 		//3. Find supplies
 		$is_supplies = False;
 		foreach ($rm->getSupplies() as $supply){
-			foreach ($item_supplies as $key => $supplyName){
+			foreach ($item_supplies as $supplyName){
 				if (strcmp($supply->getName(), $supplyName)==0){
 					$is_supplies = True;
 					break;
@@ -198,7 +217,7 @@ class Controller{
 		//3. Find menu items
 		$is_menuitem = False;
 		foreach ($rm->getMenuItems() as $menuitem){
-			foreach ($order_menuItem as $key => $itemName){
+			foreach ($order_menuItem as $itemName){
 				if (strcmp($menuitem->getName(), $itemName)==0){
 					$is_menuitem = True;
 					break;
