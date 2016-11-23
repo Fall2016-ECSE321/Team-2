@@ -115,7 +115,6 @@ class Controller{
 		$is_supplies = False;
 		foreach ($rm->getSupplies() as $supply){
 			foreach ($item_supplies as $key => $supplyName){
-				$item_supplies[$key] = InputValidator::validate_input($supplyName);
 				if (strcmp($supply->getName(), $supplyName)==0){
 					$is_supplies = True;
 					break;
@@ -152,5 +151,48 @@ class Controller{
 		}
 	}
 	
+	public function createOrder($order_menuItem){
+		//1. load all of the data
+		$pm = new PersistenceFoodTruck();
+		$rm = $pm -> loadDataFromStore();
 	
+		//2. Validate input
+		$error = "";
+		
+		//3. Find menu items
+		$is_menuitem = False;
+		foreach ($rm->getMenuItems() as $menuitem){
+			foreach ($order_menuItem as $key => $itemName){
+				if (strcmp($menuitem->getName(), $itemName)==0){
+					$is_menuitem = True;
+					break;
+				}
+			}
+		}
+	
+		if ($is_menuitem){
+			//4. Add the new Order
+			$order = new Order();
+				
+			//5. Find menuitems again and link to order
+			foreach ($rm->getMenuItems() as $menuitem){
+				foreach ($order_menuItem as $itemName){
+					if (strcmp($menuitem->getName(), $itemName)==0){
+						$order->addMenuItem($menuitem);
+					}
+				}
+			}
+			$rm->addOrder($order);
+	
+			//6. Write all of the data
+			$pm->writeDataToStore($rm);
+		}
+		else {
+			if (!$is_menuitem) {
+				$error .= "Order Menu item not found!";
+			}
+	
+			throw new Exception($error);
+		}
+	}
 }

@@ -6,6 +6,7 @@ require_once __DIR__.'/../model/Equipment.php';
 require_once __DIR__.'/../model/Supply.php';
 require_once __DIR__.'/../model/Staff.php';
 require_once __DIR__.'/../model/MenuItem.php';
+require_once __DIR__.'/../model/Order.php';
 
 
 //TODO: refactor the check if empty ones to a method
@@ -401,7 +402,153 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		//this->assertEquals(0, count($this->rm->getEvents()));
 		//$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
-	//TODO: do we need to add supply not found? since its going to be a slider?
+	public function testCreateMenuItemSupplyDoNotExist() {
+		$this->assertEquals(0, count($this->ftms->getMenuItems()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
 	
+		$nameS = "Banana";
+		$quantityS = 4;
+		try {
+			$this->c->createSupply($nameS,$quantityS);
+		} catch (Exception $e) {
+			$this->fail();
+		}
+	
+		$this->ftms = $this->pm->loadDataFromStore();
+		$this->assertEquals(1, count($this->ftms->getSupplies()));
+		$supply = $this->ftms->getSupply_index(0);
+		$this->ftms->delete();
+		$this->pm->writeDataToStore($this->ftms);
+		
+		$name = "Pasta";
+		$supplies = array($supply->getName());
+		try {
+			$this->c->createMenuItem($name,$supplies);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+		 
+		// check error
+		$this->assertEquals("@2Menu item ingredient not found!", $error);
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+		$this->assertEquals(0, count($this->ftms->getMenuItems()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+	}
+	
+	//***
+	public function testCreateOrder() {
+		$this->assertEquals(0, count($this->ftms->getOrders()));
+		$this->assertEquals(0, count($this->ftms->getMenuItems()));
+	
+		//first create supply & menu item to link to order
+		$nameS = "Banana";
+		$quantityS = 4;
+		try {
+			$this->c->createSupply($nameS,$quantityS);
+		} catch (Exception $e) {
+			$this->fail();
+		}
+		
+		$nameM = "Salad";
+		$supplyM = array($nameS);
+		try {
+			$this->c->createMenuItem($nameM,$supplyM);
+		} catch (Exception $e) {
+			$this->fail();
+		}
+		//create order to test
+		$menuItem = array("Salad");
+		try {
+			$this->c->createOrder($menuItem);
+		} catch (Exception $e) {
+			// check that no error occurred
+			$this->fail();
+		}
+	
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+		$this->assertEquals(1, count($this->ftms->getOrders()));
+		$this->assertEquals(1, count($this->ftms->getMenuItems()));
+		$this->assertEquals(1, count($this->ftms->getSupplies()));
+		$this->assertEquals($nameM, $this->ftms->getMenuItem_index(0)->getName());
+		$this->assertEquals($this->ftms->getMenuItem_index(0), $this->ftms->getOrder_index(0)->getMenuItem_index(0));
+	
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		// 		$this->assertEquals(0, count($this->ftms->getEvents()));
+		// 		$this->assertEquals(0, count($this->ftms->getRegistrations()));
+	}
+	public function testCreateOrderNull() {
+		$this->assertEquals(0, count($this->ftms->getOrders()));
+		$this->assertEquals(0, count($this->ftms->getMenuItems()));
+	
+		$menuItem = array(null);
+		$error = "";
+		try {
+			$this->c->createOrder($menuItem);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+	
+		// check error
+		$this->assertEquals("Order Menu item not found!", $error);
+	
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+	
+		$this->assertEquals(0, count($this->ftms->getOrders()));
+		$this->assertEquals(0, count($this->ftms->getMenuItems()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		//this->assertEquals(0, count($this->rm->getEvents()));
+		//$this->assertEquals(0, count($this->rm->getRegistrations()));
+	}
+	public function testCreateOrderMenuItemDoNotExist() {
+		$this->assertEquals(0, count($this->ftms->getMenuItems()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+	
+		//first create supply & menu item to link to order
+		$nameS = "Banana";
+		$quantityS = 4;
+		try {
+			$this->c->createSupply($nameS,$quantityS);
+		} catch (Exception $e) {
+			$this->fail();
+		}
+		
+		$nameM = "salad";
+		$supplyM = array($nameS);
+		try {
+			$this->c->createMenuItem($nameM,$supplyM);
+		} catch (Exception $e) {
+			$this->fail();
+		}
+	
+		$this->ftms = $this->pm->loadDataFromStore();
+		$this->assertEquals(1, count($this->ftms->getMenuItems()));
+		$menuitem = $this->ftms->getMenuItem_index(0);
+		$this->ftms->delete();
+		$this->pm->writeDataToStore($this->ftms);
+	
+		$menuItems = array($menuitem->getName());
+		try {
+			$this->c->createOrder($menuItems);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+			
+		// check error
+		$this->assertEquals("Order Menu item not found!", $error);
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+		$this->assertEquals(0, count($this->ftms->getOrders()));
+		$this->assertEquals(0, count($this->ftms->getMenuItems()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getEquipment()));	}
 }
 
