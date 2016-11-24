@@ -169,8 +169,8 @@ public class MenuItemsPage extends JFrame {
 								.addComponent(supplyList3)
 								.addComponent(supplyList4)
 								.addComponent(addMenuItemButton)))
-						.addComponent(menuItemScrollPane)
-						.addComponent(menuItemInfo)
+				.addComponent(menuItemScrollPane)
+				.addComponent(menuItemInfo)
 				);
 		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {menuItemNameTextField, supplyList1, supplyList2, supplyList3, supplyList4, addMenuItemButton});
 
@@ -249,7 +249,6 @@ public class MenuItemsPage extends JFrame {
 
 			menuItemNameTextField.setText("");
 		}
-
 		// this is needed because the size of the window changes depending on whether an error message is shown or not
 		pack();
 	}

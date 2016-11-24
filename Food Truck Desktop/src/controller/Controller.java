@@ -168,7 +168,7 @@ public class Controller {
 		master.addMenuItem(menuItem);
 		PersistenceXStream.saveToXMLwithXStream(master);
 	}
-	
+
 	// for dayOfWeek use 1 for Monday, ... , 7 for Sunday
 	public void createTimeBlock(Time startTime, Time endTime, int dayOfWeek, Staff staff) throws InvalidInputException{
 		String error = "";
@@ -193,19 +193,44 @@ public class Controller {
 		}
 		PersistenceXStream.saveToXMLwithXStream(master);
 	}
-	
+
 	public void createOrder(ArrayList<MenuItem> menuItems) throws InvalidInputException{
 		String error = "";
 		if(menuItems.isEmpty())
 			error += "You must select at least one menu item! ";
-		error = error.trim();
-		if(error.length() > 0)
-			throw new InvalidInputException(error);
+		FTMS master = FTMS.getInstance();
 		Order order = new Order();
 		for(int x = 0; x < menuItems.size(); x++)
 			order.addMenuItem(menuItems.get(x));
-		FTMS master = FTMS.getInstance();
+		int flag = 0;
+		for(int x  = 0; x < order.getMenuItems().size(); x++){
+			for(int y = 0; y < order.getMenuItem(x).getSupplies().size(); y++){
+				flag = 0;
+				for(int i = 0; i < master.getSupplies().size(); i++){
+					if(master.getSupply(i).getName() == order.getMenuItem(x).getSupply(y).getName() && master.getSupply(i).getQuantity() > 0){
+						master.getSupply(i).setQuantity(master.getSupply(i).getQuantity() - 1);
+						flag  = 1;
+						break;
+					}
+				}
+				if(flag == 0){
+					String txt = String.format("This %s is unavailable at the moment!", order.getMenuItem(x));
+					error += txt;
+					error = error.trim();
+					if(error.length() > 0)
+						throw new InvalidInputException(error);
+				}
+			}
+		}
+		for(int x = 0; x < order.getMenuItems().size(); x++){
+			for(int y = 0; y < master.getMenuItems().size(); y++){
+				if(master.getMenuItem(y).getName() == order.getMenuItem(x).getName())
+					master.getMenuItem(y).setPopularity(master.getMenuItem(y).getPopularity() + 1);
+			}
+		}
+		
 		master.addOrder(order);
+
 		PersistenceXStream.saveToXMLwithXStream(master);
 	}
 }

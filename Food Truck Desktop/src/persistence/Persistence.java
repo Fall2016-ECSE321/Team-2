@@ -18,6 +18,7 @@ public class Persistence {
 		PersistenceXStream.setAlias("equipment", Equipment.class);
 		PersistenceXStream.setAlias("supply", Supply.class);
 		PersistenceXStream.setAlias("order", Order.class);
+		PersistenceXStream.setAlias("menuItem", MenuItem.class);
 		PersistenceXStream.setAlias("FTMS", FTMS.class);
 	}
 

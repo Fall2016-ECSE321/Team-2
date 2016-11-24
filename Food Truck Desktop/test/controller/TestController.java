@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import model.Equipment;
 import model.FTMS;
+import model.Order;
 import model.Staff;
 import model.Supply;
 import persistence.PersistenceXStream;
@@ -30,6 +31,7 @@ public class TestController {
 		PersistenceXStream.setAlias("FTMS", FTMS.class);
 		PersistenceXStream.setAlias("supply", Supply.class);
 		PersistenceXStream.setAlias("menuItem", MenuItem.class);
+		PersistenceXStream.setAlias("order", Order.class);
 	}
 
 	@After
@@ -588,26 +590,21 @@ public class TestController {
 		FTMS master = FTMS.getInstance();
 		assertEquals(0, master.getOrders().size());
 		assertEquals(0, master.getMenuItems().size());
-		String name = "Tomato chips";
+		String name1 = "Tomato Chips";
+		String name2 = "Tomato Fries";
 		ArrayList<Supply> ingredients1 = new ArrayList<Supply>();
 		ArrayList<Supply> ingredients2 = new ArrayList<Supply>();
 		ArrayList<model.MenuItem> menuItems = new ArrayList<model.MenuItem>();
 		Controller c = new Controller();
 
 		try {
-			c.createSupply("Tomato", "hi", "10");
+			c.createSupply("Tomato", "hi", "2");
 		} catch (InvalidInputException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		try {
 			c.createSupply("Potato", "hi", "20");
-		} catch (InvalidInputException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			c.createSupply("Cheese", "", "10");
 		} catch (InvalidInputException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -621,30 +618,30 @@ public class TestController {
 
 		ingredients1.add(master.getSupply(0));
 		ingredients1.add(master.getSupply(1));
+		ingredients2.add(master.getSupply(0));
 		ingredients2.add(master.getSupply(2));
-		ingredients2.add(master.getSupply(3));
-		
+
 		try {
-			c.createMenuItem(name, ingredients1);
+			c.createMenuItem(name1, ingredients1);
 		} catch (InvalidInputException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		try {
-			c.createMenuItem(name, ingredients2);
+			c.createMenuItem(name2, ingredients2);
 		} catch (InvalidInputException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		menuItems.add(master.getMenuItem(0));
 		menuItems.add(master.getMenuItem(1));
-		
+
 		try {
 			c.createOrder(menuItems);
 		} catch (InvalidInputException e) {
 			// check that no error occurred
-			fail();
+			e.getMessage();
 		}
 		checkResultOrder(menuItems, master);
 		FTMS master2 = (FTMS) PersistenceXStream.loadFromXMLwithXStream();
@@ -696,9 +693,9 @@ public class TestController {
 		assertEquals(endTime2.toString(), master.getStaff(0).getTimeBlock(1).getEndTime().toString());
 		assertEquals(dayOfWeek2, master.getStaff(0).getTimeBlock(1).getDayOfWeek());
 	}
-	
+
 	public void checkResultOrder(ArrayList<model.MenuItem> m, FTMS master){
-		assertEquals(4, master.getSupplies().size());
+		assertEquals(3, master.getSupplies().size());
 		assertEquals(2, master.getMenuItems().size());
 		assertEquals(1, master.getOrders().size());
 		assertEquals(m.get(0).getSupply(0).getClass(), master.getOrder(0).getMenuItem(0).getSupply(0).getClass());
@@ -707,5 +704,7 @@ public class TestController {
 		assertEquals(m.get(1).getSupply(1).getClass(), master.getOrder(0).getMenuItem(1).getSupply(1).getClass());
 		assertEquals(m.get(0).getClass(), master.getOrder(0).getMenuItem(0).getClass());
 		assertEquals(m.get(1).getClass(), master.getOrder(0).getMenuItem(1).getClass());
+		assertEquals(1, master.getMenuItem(0).getPopularity());
+		assertEquals(1, master.getMenuItem(1).getPopularity());
 	}
 }
