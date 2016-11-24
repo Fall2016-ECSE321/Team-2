@@ -3,22 +3,22 @@ require_once 'controller/Controller.php';
 
 session_start( );
 
-$_SESSION["errorEquipmentName"] = "";
-$_SESSION["errorEquipmentQuantity"] = "";
+$_SESSION["errorSupplyName"] = "";
+$_SESSION["errorSupplyQuantity"] = "";
 
 $c = new Controller();
 try {
-	$name = $_POST['equipment_name'];
-	$quantity = $_POST['equipment_quantity'];
-	$c->createEquipment($name,$quantity);
+	$name = $_POST['supply_name'];
+	$quantity = $_POST['supply_quantity'];
+	$c->createSupply($name,$quantity);
 } catch (Exception $e) {
 	$errors = explode("@", $e->getMessage()); 
 	foreach ($errors as $error) {
 		if (substr($error, 0, 1) == "1") {
-			$_SESSION["errorEquipmentName"] = substr($error, 1);
+			$_SESSION["errorSupplyName"] = substr($error, 1);
 		} 
 		if (substr($error, 0, 1) == "2") {
-			$_SESSION["errorEquipmentQuantity"] = substr($error, 1);
+			$_SESSION["errorSupplyQuantity"] = substr($error, 1);
 		}
 	}}
 ?>

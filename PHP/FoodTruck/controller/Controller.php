@@ -2,6 +2,13 @@
 require_once __DIR__.'/InputValidator.php';
 require_once __DIR__.'/../persistence/PersistenceFoodTruck.php';
 require_once __DIR__.'/../model/Equipment.php';
+require_once __DIR__.'/../model/Supply.php';
+require_once __DIR__.'/../model/MenuItem.php';
+require_once __DIR__.'/../model/Order.php';
+require_once __DIR__.'/../model/TimeBlock.php';
+require_once __DIR__.'/../model/Staff.php';
+
+
 require_once __DIR__.'/../model/FTMS.php';
 
 class Controller{

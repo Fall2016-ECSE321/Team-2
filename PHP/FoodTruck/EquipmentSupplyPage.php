@@ -10,7 +10,8 @@
 	<body>
 		<?php 
 			require_once "model/Equipment.php";
-			
+			require_once "model/Staff.php";
+				
 			session_start();
 		?>
 		<form action="addEquipment.php" method="post">
@@ -31,6 +32,25 @@
 				?>
 			</span></p>
 			<p><input type="submit" value="Add Equipment"/></p>
+		</form>
+		<form action="addSupply.php" method="post">
+			<p>Supply name? <input type ="text" name ="supply_name" />
+				<span class="error">
+				<?php 
+				if (isset($_SESSION['errorSupplyName']) && !empty($_SESSION['errorSupplyName'])){
+					echo "*" . $_SESSION["errorSupplyName"];
+				}
+				?>
+			</span></p>
+			<p>Supply quantity? <input type ="text" name ="supply_quantity" />
+				<span class="error">
+				<?php 
+				if (isset($_SESSION['errorSupplyQuantity']) && !empty($_SESSION['errorSupplyQuantity'])){
+					echo "*" . $_SESSION["errorSupplyQuantity"];
+				}
+				?>
+			</span></p>
+			<p><input type="submit" value="Add Supply"/></p>
 		</form>
 		<p><input name="Back" type="button" value="Back" onclick="window.open('ManagerPage.php','_self')"/> </p>
 	</body>
