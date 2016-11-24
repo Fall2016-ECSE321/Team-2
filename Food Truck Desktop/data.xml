@@ -57,8 +57,29 @@
       <description>YAY I CAN GO HOME AND EAT NOW</description>
       <quantity>2</quantity>
     </supply>
+    <supply id="15">
+      <name>Flour</name>
+      <description></description>
+      <quantity>10</quantity>
+    </supply>
   </supplies>
-  <staffs id="15"/>
-  <orders id="16"/>
-  <menuItems id="17"/>
+  <staffs id="16"/>
+  <orders id="17"/>
+  <menuItems id="18">
+    <model.MenuItem id="19">
+      <name>Krusher</name>
+      <supplies id="20">
+        <supply reference="12"/>
+        <supply reference="13"/>
+        <supply reference="14"/>
+      </supplies>
+    </model.MenuItem>
+    <model.MenuItem id="21">
+      <name>Apple Pie</name>
+      <supplies id="22">
+        <supply reference="15"/>
+        <supply reference="13"/>
+      </supplies>
+    </model.MenuItem>
+  </menuItems>
 </FTMS>
