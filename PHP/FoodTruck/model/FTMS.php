@@ -420,7 +420,7 @@ class FTMS
   public function addStaff($aStaff)
   {
     $wasAdded = false;
-    if ($this->indexOfStaff($aStaff) !== -1) { return false; }
+   //if ($this->indexOfStaff($aStaff) !== -1) { return false; }
     $this->staffs[] = $aStaff;
     $wasAdded = true;
     return $wasAdded;
@@ -478,7 +478,7 @@ class FTMS
   public function addOrder($aOrder)
   {
     $wasAdded = false;
-    if ($this->indexOfOrder($aOrder) !== -1) { return false; }
+    //if ($this->indexOfOrder($aOrder) !== -1) { return false; }
     $this->orders[] = $aOrder;
     $wasAdded = true;
     return $wasAdded;

@@ -17,7 +17,6 @@ try {
 		$supply = $_POST['supplyspinner2'];
 		$supplies[] = $supply;
 	}
-	$supplies[] = $supply;
 	if (isset($_POST['supplyspinner3'])) {
 		$supply = $_POST['supplyspinner3'];
 		$supplies[] = $supply;

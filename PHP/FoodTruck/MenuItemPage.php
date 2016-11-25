@@ -38,14 +38,16 @@
 						<th>Menu Item</th>
 						<th>Ingredients</th>
 					</tr>";
+			$index = 1;
 			foreach ($rm->getMenuItems() as $menuitem){
-				echo "<tr><td>" . $menuitem->getName() . "</td>";
+				echo "<tr><td>  #" . $index . "      " . $menuitem->getName() . "</td>";
 				$supplies= $menuitem->getSupplies();
 				$supplylist = "";
+				$index ++;
 				foreach ($supplies as $supply){
-					$supplylist .= $supply->getName() . " ";
+					$supplylist .= $supply->getName() . ", ";
 				}
-				trim($supplylist);
+				$supplylist = rtrim($supplylist,', ');
 				echo "<td>" . $supplylist . "</td></tr>";
 			}
 			echo"</table></p></div>";
