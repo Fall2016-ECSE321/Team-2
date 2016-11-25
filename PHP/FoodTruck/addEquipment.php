@@ -1,7 +1,7 @@
 <?php
 require_once 'controller/Controller.php';
 
-session_start( );
+session_start();
 
 $_SESSION["errorEquipmentName"] = "";
 $_SESSION["errorEquipmentQuantity"] = "";

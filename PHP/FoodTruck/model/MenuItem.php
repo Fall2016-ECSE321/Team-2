@@ -91,7 +91,7 @@ class MenuItem
   public function addSupply($aSupply)
   {
     $wasAdded = false;
-    if ($this->indexOfSupply($aSupply) !== -1) { return false; }
+    //if ($this->indexOfSupply($aSupply) !== -1) { return false; }
     $this->supplies[] = $aSupply;
     $wasAdded = true;
     return $wasAdded;
