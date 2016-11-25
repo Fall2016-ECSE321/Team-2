@@ -47,7 +47,7 @@ public class TestController {
 		assertEquals(0, master.getEquipments().size());
 		String name = "Butter knife";
 		String description = "Careful it is sharp!";
-		String quantity = "10";
+		String quantity = "0";
 		Controller c = new Controller();
 		try {
 			c.createEquipment(name, description, quantity);
@@ -167,7 +167,7 @@ public class TestController {
 		assertEquals(0, master.getSupplies().size());
 		String name = "Tomato";
 		String description = "Do not use if rotten!";
-		String quantity = "10";
+		String quantity = "0";
 		Controller c = new Controller();
 		try {
 			c.createSupply(name, description, quantity);

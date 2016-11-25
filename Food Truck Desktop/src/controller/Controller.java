@@ -52,8 +52,8 @@ public class Controller {
 						break;
 				}
 				if(numZero == nonValidatedQuantity.length())	// if input is all zeros then set it to zero
-					nonValidatedQuantity = "0";
-
+					validatedQuantity = "0";
+				
 				for(int i =0; i < nonValidatedQuantity.length() - numZero; i++){
 					validatedQuantity += nonValidatedQuantity.charAt(i + numZero);
 				}
@@ -107,7 +107,7 @@ public class Controller {
 						break;
 				}
 				if(numZero == nonValidatedQuantity.length())	// if input is all zeros then set it to zero
-					nonValidatedQuantity = "0";
+					validatedQuantity = "0";
 
 				for(int i =0; i < nonValidatedQuantity.length() - numZero; i++){
 					validatedQuantity += nonValidatedQuantity.charAt(i + numZero);
