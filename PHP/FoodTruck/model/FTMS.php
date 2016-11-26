@@ -594,7 +594,7 @@ class FTMS
   public function addTimeBlock($aTimeBlock)
   {
     $wasAdded = false;
-    if ($this->indexOfTimeBlock($aTimeBlock) !== -1) { return false; }
+    //if ($this->indexOfTimeBlock($aTimeBlock) !== -1) { return false; }
     $this->timeBlocks[] = $aTimeBlock;
     $wasAdded = true;
     return $wasAdded;

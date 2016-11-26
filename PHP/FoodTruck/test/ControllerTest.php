@@ -434,7 +434,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		}
 	
 		// check error
-		$this->assertEquals("@3Time block end time cannot be before event start time!", $error);
+		$this->assertEquals("@3Time block end time cannot be before Time block start time!", $error);
 		// check file contents
 		$this->ftms = $this->pm->loadDataFromStore();
 	

@@ -173,7 +173,7 @@ class Controller{
 				$error .= "@3Time block end time must be specified correctly (HH:MM)! ";
 			}
 			if ($block_endtime < $block_starttime){
-				$error .= "@3Time block end time cannot be before event start time! ";
+				$error .= "@3Time block end time cannot be before Time block start time! ";
 			}
 			if($myKey == -1){
 				$error .= "@4Staff not found! ";
