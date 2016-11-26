@@ -265,7 +265,9 @@ class Controller{
 						$menuitem->incrementPopularity(1);
 						//remove quantity to supply of menu item
 						foreach($menuitem->getSupplies() as $supply){
+							if($supply->getQuantity()!=0){
 							$supply->setQuantity($supply->getQuantity()-1);
+							}
 						}
 						$order->addMenuItem($menuitem);
 					}
