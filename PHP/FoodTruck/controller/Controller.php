@@ -2,6 +2,13 @@
 require_once __DIR__.'/InputValidator.php';
 require_once __DIR__.'/../persistence/PersistenceFoodTruck.php';
 require_once __DIR__.'/../model/Equipment.php';
+require_once __DIR__.'/../model/Supply.php';
+require_once __DIR__.'/../model/MenuItem.php';
+require_once __DIR__.'/../model/Order.php';
+require_once __DIR__.'/../model/TimeBlock.php';
+require_once __DIR__.'/../model/Staff.php';
+
+
 require_once __DIR__.'/../model/FTMS.php';
 
 class Controller{
@@ -16,7 +23,7 @@ class Controller{
 		$name = InputValidator::validate_input($equipment_name);
 		$quantity = InputValidator::validate_input($equipment_quantity);
 		$isInt = preg_match('/^[0-9]+$/',$quantity);
-		if ($name!=null && strlen($name)!=0 && $quantity!=null && strlen($quantity)!=0 && $isInt){
+		if ($name!=null && strlen($name)!=0 && strlen($name) <=50 && $quantity!=null && strlen($quantity)!=0 && strlen($quantity)<=9 && $isInt){
 			//2. load all of the data
 			$pm = new PersistenceFoodTruck();
 			$rm = $pm->loadDataFromStore();
@@ -32,11 +39,17 @@ class Controller{
 			if ($name == null || strlen($name)==0) {
 				$error .= "@1Equipment name cannot be empty! ";
 			}
+			else if (strlen($name) > 50){
+				$error .="@1Equipment name cannot be longer than 50 characters! ";
+			}
 			if ($quantity == null || strlen($quantity) ==0) {
 				$error .= "@2Equipment quantity cannot be empty! ";
 			}
 			else if (!$isInt) {
 				$error .= "@2Equipment quantity must be a positive integer! ";
+			}
+			else if(strlen($quantity) > 9){
+				$error .= "@2Equipment quantity cannot have more than 9 digits! ";
 			}
 			throw new Exception(trim($error));
 		} 
@@ -48,7 +61,7 @@ class Controller{
 		$name = InputValidator::validate_input($supply_name);
 		$quantity = InputValidator::validate_input($supply_quantity);
 		$isInt = preg_match('/^[0-9]+$/',$quantity);
-		if ($name!=null && strlen($name)!=0 && $quantity!=null && strlen($quantity)!=0 && $isInt){
+		if ($name!=null && strlen($name)!=0 && strlen($name) <=50 && $quantity!=null && strlen($quantity)!=0 && strlen($quantity) <=9 && $isInt){
 			//2. load all of the data
 			$pm = new PersistenceFoodTruck();
 			$rm = $pm->loadDataFromStore();
@@ -64,11 +77,17 @@ class Controller{
 			if ($name == null || strlen($name)==0) {
 				$error .= "@1Supply name cannot be empty! ";
 			}
+			else if (strlen($name) > 50){
+				$error .="@1Supply name cannot be longer than 50 characters! ";
+			}
 			if ($quantity == null || strlen($quantity) ==0) {
 				$error .= "@2Supply quantity cannot be empty! ";
 			}
 			else if (!$isInt) {
 				$error .= "@2Supply quantity must be a positive integer! ";
+			}
+			else if (strlen($quantity) > 9){
+				$error .="@2Supply quantity cannot have more than 9 digits! ";
 			}
 			throw new Exception(trim($error));
 		}
@@ -84,7 +103,7 @@ class Controller{
 		$pm = new PersistenceFoodTruck();
 		$rm = $pm->loadDataFromStore();
 		
-		if ($name!=null && strlen($name)!=0 && $role!=null && strlen($role)!=0){
+		if ($name!=null && strlen($name)!=0 && strlen($name) <=50 && $role!=null && strlen($role)!=0 && strlen($role) <=50){
 			
 	
 			//3. Add the new Staff
@@ -98,8 +117,14 @@ class Controller{
 			if ($name == null || strlen($name)==0) {
 				$error .= "@1Staff name cannot be empty! ";
 			}
+			else if (strlen($name) > 50){
+				$error .="@1Staff name cannot be longer than 50 characters! ";
+			}
 			if ($role == null || strlen($role) ==0) {
 				$error .= "@2Staff role cannot be empty! ";
+			}
+			else if (strlen($name) > 50){
+				$error .="@2Staff role cannot be longer than 50 characters! ";
 			}
 			
 			throw new Exception(trim($error));
@@ -148,7 +173,7 @@ class Controller{
 				$error .= "@3Time block end time must be specified correctly (HH:MM)! ";
 			}
 			if ($block_endtime < $block_starttime){
-				$error .= "@3Time block end time cannot be before event start time! ";
+				$error .= "@3Time block end time cannot be before Time block start time! ";
 			}
 			if($myKey == -1){
 				$error .= "@4Staff not found! ";
@@ -177,7 +202,7 @@ class Controller{
 			}
 		}
 		
-		if ($name!=null && strlen($name)!=0 && $is_supplies){
+		if ($name!=null && strlen($name)!=0 && strlen($name)<=50 && $is_supplies){
 			//4. Add the new Menu Item
 			$menuItem = new MenuItem($name);
 			
@@ -197,6 +222,9 @@ class Controller{
 		else {
 			if ($name == null || strlen($name)==0) {
 				$error .= "@1Menu item name cannot be empty! ";
+			}
+			else if (strlen($name) > 50){
+				$error .="@1Menu item name cannot be longer than 50 characters! ";
 			}
 			if (!$is_supplies) {
 				$error .= "@2Menu item ingredient not found! ";
@@ -233,6 +261,14 @@ class Controller{
 			foreach ($rm->getMenuItems() as $menuitem){
 				foreach ($order_menuItem as $itemName){
 					if (strcmp($menuitem->getName(), $itemName)==0){
+						//add one to the popularity of the menu item
+						$menuitem->incrementPopularity(1);
+						//remove quantity to supply of menu item
+						foreach($menuitem->getSupplies() as $supply){
+							if($supply->getQuantity()!=0){
+							$supply->setQuantity($supply->getQuantity()-1);
+							}
+						}
 						$order->addMenuItem($menuitem);
 					}
 				}

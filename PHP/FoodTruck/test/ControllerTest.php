@@ -149,6 +149,30 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		// 		$this->assertEquals(0, count($this->rm->getEvents()));
 		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
+	public function testCreateEquipmentTooLong() {
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+	
+		$name = "veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylonglonglonglonglonglonglongstringstringstringstring";
+		$quantity = "12345678910";
+		$error = "";
+		try {
+			$this->c->createEquipment($name,$quantity);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+	
+		// check error
+		$this->assertEquals("@1Equipment name cannot be longer than 50 characters! @2Equipment quantity cannot have more than 9 digits!", $error);
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+	
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+		// 		$this->assertEquals(0, count($this->rm->getEvents()));
+		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+	}
+	
 	//**
 	public function testCreateSupply() {
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
@@ -266,6 +290,29 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
 		$this->assertEquals(0, count($this->ftms->getStaffs()));
 	
+		// 		$this->assertEquals(0, count($this->rm->getEvents()));
+		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+	}
+	public function testCreateSupplyTooLong() {
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+	
+		$name = "veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylonglonglonglonglonglonglongstringstringstringstring";
+		$quantity = "12345678910";
+		$error = "";
+		try {
+			$this->c->createSupply($name,$quantity);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+	
+		// check error
+		$this->assertEquals("@1Supply name cannot be longer than 50 characters! @2Supply quantity cannot have more than 9 digits!", $error);
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+	
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
 		// 		$this->assertEquals(0, count($this->rm->getEvents()));
 		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
@@ -387,7 +434,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		}
 	
 		// check error
-		$this->assertEquals("@3Time block end time cannot be before event start time!", $error);
+		$this->assertEquals("@3Time block end time cannot be before Time block start time!", $error);
 		// check file contents
 		$this->ftms = $this->pm->loadDataFromStore();
 	
@@ -464,6 +511,29 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(0, count($this->ftms->getStaffs()));
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		// 		$this->assertEquals(0, count($this->rm->getEvents()));
+		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+	}
+	public function testCreateStaffTooLong() {
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+	
+		$name = "veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylonglonglonglonglonglonglongstringstringstringstring";
+		$role = "veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylonglonglonglonglonglonglongstringstringstringstring";
+		$error = "";
+		try {
+			$this->c->createStaff($name,$role);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+	
+		// check error
+		$this->assertEquals("@1Staff name cannot be longer than 50 characters! @2Staff role cannot be longer than 50 characters!", $error);
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+	
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(0, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
 		// 		$this->assertEquals(0, count($this->rm->getEvents()));
 		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
@@ -565,7 +635,38 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
 	}
+	public function testCreateMenuItemTooLong() {
+		$this->assertEquals(0, count($this->ftms->getMenuItems()));
 	
+		$nameS = "Banana";
+		$quantityS = 4;
+		try {
+			$this->c->createSupply($nameS,$quantityS);
+		} catch (Exception $e) {
+			$this->fail();
+		}
+		
+		$name = "veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylonglonglonglonglonglonglongstringstringstringstring";
+		$error = "";
+		$supplies = array($nameS);
+		try {
+			$this->c->createMenuItem($name,$supplies);
+		} catch (Exception $e) {
+			$error = $e->getMessage();
+		}
+	
+		// check error
+		$this->assertEquals("@1Menu item name cannot be longer than 50 characters!", $error);
+		// check file contents
+		$this->ftms = $this->pm->loadDataFromStore();
+	
+		$this->assertEquals(0, count($this->ftms->getMenuItems()));
+		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		$this->assertEquals(1, count($this->ftms->getSupplies()));
+		$this->assertEquals(0, count($this->ftms->getStaffs()));
+		// 		$this->assertEquals(0, count($this->rm->getEvents()));
+		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+	}
 	//***
 	public function testCreateOrder() {
 		$this->assertEquals(0, count($this->ftms->getOrders()));
@@ -602,6 +703,9 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(1, count($this->ftms->getMenuItems()));
 		$this->assertEquals(1, count($this->ftms->getSupplies()));
 		$this->assertEquals($nameM, $this->ftms->getMenuItem_index(0)->getName());
+		$this->assertEquals(1, $this->ftms->getMenuItem_index(0)->getPopularity());
+		$this->assertEquals(3, $this->ftms->getMenuItem_index(0)->getSupply_index(0)->getQuantity());
+		
 		$this->assertEquals($this->ftms->getMenuItem_index(0), $this->ftms->getOrder_index(0)->getMenuItem_index(0));
 	
 		$this->assertEquals(0, count($this->ftms->getStaffs()));

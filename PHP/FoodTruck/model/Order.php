@@ -74,7 +74,7 @@ class Order
   public function addMenuItem($aMenuItem)
   {
     $wasAdded = false;
-    if ($this->indexOfMenuItem($aMenuItem) !== -1) { return false; }
+    //if ($this->indexOfMenuItem($aMenuItem) !== -1) { return false; }
     $this->menuItems[] = $aMenuItem;
     $wasAdded = true;
     return $wasAdded;
