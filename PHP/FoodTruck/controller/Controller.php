@@ -261,9 +261,13 @@ class Controller{
 			foreach ($rm->getMenuItems() as $menuitem){
 				foreach ($order_menuItem as $itemName){
 					if (strcmp($menuitem->getName(), $itemName)==0){
-						$menuitem->incrementPopularity(1);
-						$order->addMenuItem($menuitem);
 						//add one to the popularity of the menu item
+						$menuitem->incrementPopularity(1);
+						//remove quantity to supply of menu item
+						foreach($menuitem->getSupplies() as $supply){
+							$supply->setQuantity($supply->getQuantity()-1);
+						}
+						$order->addMenuItem($menuitem);
 					}
 				}
 			}

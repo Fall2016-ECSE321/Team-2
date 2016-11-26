@@ -704,6 +704,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(1, count($this->ftms->getSupplies()));
 		$this->assertEquals($nameM, $this->ftms->getMenuItem_index(0)->getName());
 		$this->assertEquals(1, $this->ftms->getMenuItem_index(0)->getPopularity());
+		$this->assertEquals(3, $this->ftms->getMenuItem_index(0)->getSupply_index(0)->getQuantity());
+		
 		$this->assertEquals($this->ftms->getMenuItem_index(0), $this->ftms->getOrder_index(0)->getMenuItem_index(0));
 	
 		$this->assertEquals(0, count($this->ftms->getStaffs()));
