@@ -261,7 +261,9 @@ class Controller{
 			foreach ($rm->getMenuItems() as $menuitem){
 				foreach ($order_menuItem as $itemName){
 					if (strcmp($menuitem->getName(), $itemName)==0){
+						$menuitem->incrementPopularity(1);
 						$order->addMenuItem($menuitem);
+						//add one to the popularity of the menu item
 					}
 				}
 			}

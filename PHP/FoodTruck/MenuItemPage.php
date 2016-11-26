@@ -33,25 +33,43 @@
 			
 			//show menu items in store in table format
 			echo "<div id='display'><p><table style = 'width:100%'>
-					<caption>Current Menu</caption>
+					<caption>Current Menu (sorted by popularity)</caption>
 					<tr>
 						<th>Menu Item</th>
 						<th>Ingredients</th>
+						<th>Popularity (# of orders)</th>
 					</tr>";
-			$index = 1;
+			$menuitemsSorted = array();
 			foreach ($rm->getMenuItems() as $menuitem){
-				echo "<tr><td>  #" . $index . "      " . $menuitem->getName() . "</td>";
-				$supplies= $menuitem->getSupplies();
-				$supplylist = "";
-				$index ++;
-				foreach ($supplies as $supply){
-					$supplylist .= $supply->getName() . ", ";
-				}
-				$supplylist = rtrim($supplylist,', ');
-				echo "<td>" . $supplylist . "</td></tr>";
+				$menuitemsSorted[$menuitem->getPopularity()][] = $menuitem;
 			}
-			echo"</table></p></div>";
-
+			krsort($menuitemsSorted,SORT_NUMERIC);
+			$index = 1;
+			foreach ($menuitemsSorted as $menuitems){
+				foreach($menuitems as $menuitem){
+					echo "<tr><td>  #" . $index . "      " . $menuitem->getName() . "</td>";
+					$supplies= $menuitem->getSupplies();
+					$supplylist = "";
+					$index ++;
+					foreach ($supplies as $supply){
+						$supplylist .= $supply->getName() . ", ";
+					}
+					$supplylist = rtrim($supplylist,', ');
+					echo "<td>" . $supplylist . "</td>";
+					echo "<td>"  . $menuitem->getPopularity() . "</td></tr>";
+				}
+			}
+			echo"</table>";
+			if(!empty($menuitemsSorted)){
+				$popularitems = "";
+				foreach($menuitemsSorted[0] as $menuitems){
+					$popularitems .= $menuitems->getName() . ", ";
+				}
+				$popularitems = rtrim($popularitems,", ");
+				echo "</p><p><b>Most popular item(s): </b>" . $popularitems;
+			}
+			echo "</p></div>";
+			
 			//ask for menu item name
 			echo "<div id = 'form'><form action='addMenuItem.php' method='post'>";
 			echo"<p>Menu Item name? <input type ='text' name ='menuitem_name' />

@@ -11,6 +11,7 @@ class MenuItem
 
   //MenuItem Attributes
   private $name;
+  private $popularity;
 
   //MenuItem Associations
   private $supplies;
@@ -22,13 +23,24 @@ class MenuItem
   public function __construct($aName)
   {
     $this->name = $aName;
+    $this->popularity = 0;
     $this->supplies = array();
   }
 
   //------------------------
   // INTERFACE
   //------------------------
-
+  public function incrementPopularity($anInt)
+  {
+  	$this->popularity = $this->popularity+$anInt;
+  	return true;
+  }
+  
+  public function getPopularity()
+  {
+  	return $this->popularity;
+  }
+  
   public function setName($aName)
   {
     $wasSet = false;
