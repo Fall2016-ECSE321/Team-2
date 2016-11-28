@@ -1,0 +1,103 @@
+<FTMS id="1">
+  <equipments id="2">
+    <equipment id="3">
+      <name>Knife</name>
+      <description></description>
+      <quantity>1</quantity>
+    </equipment>
+    <equipment id="4">
+      <name>Board</name>
+      <description></description>
+      <quantity>12</quantity>
+    </equipment>
+    <equipment id="5">
+      <name>Hat</name>
+      <description></description>
+      <quantity>32</quantity>
+    </equipment>
+    <equipment id="6">
+      <name>Bottle</name>
+      <description></description>
+      <quantity>3</quantity>
+    </equipment>
+    <equipment id="7">
+      <name>Pot</name>
+      <description></description>
+      <quantity>33</quantity>
+    </equipment>
+    <equipment id="8">
+      <name>Candle</name>
+      <description></description>
+      <quantity>30</quantity>
+    </equipment>
+    <equipment id="9">
+      <name>Fork</name>
+      <description></description>
+      <quantity>111</quantity>
+    </equipment>
+    <equipment id="10">
+      <name>Ali</name>
+      <description>OMG THIS IS WORKING</description>
+      <quantity>99</quantity>
+    </equipment>
+  </equipments>
+  <supplies id="11">
+    <supply id="12">
+      <name>Tomato</name>
+      <description></description>
+      <quantity>11</quantity>
+    </supply>
+    <supply id="13">
+      <name>Apple</name>
+      <description></description>
+      <quantity>5</quantity>
+    </supply>
+    <supply id="14">
+      <name>Kris</name>
+      <description>YAY I CAN GO HOME AND EAT NOW</description>
+      <quantity>2</quantity>
+    </supply>
+    <supply id="15">
+      <name>Flour</name>
+      <description></description>
+      <quantity>10</quantity>
+    </supply>
+  </supplies>
+  <staffs id="16"/>
+  <orders id="17"/>
+  <menuItems id="18">
+    <menuItem id="19">
+      <name>Krusher</name>
+      <supplies id="20">
+        <supply reference="12"/>
+        <supply reference="13"/>
+        <supply reference="14"/>
+      </supplies>
+      <popularity>0</popularity>
+    </menuItem>
+    <menuItem id="21">
+      <name>Apple Pie</name>
+      <supplies id="22">
+        <supply reference="15"/>
+        <supply reference="13"/>
+      </supplies>
+      <popularity>0</popularity>
+    </menuItem>
+    <menuItem id="23">
+      <name>Tomato Pie</name>
+      <supplies id="24">
+        <supply reference="12"/>
+        <supply reference="15"/>
+      </supplies>
+      <popularity>0</popularity>
+    </menuItem>
+    <menuItem id="25">
+      <name>Tomato Pie</name>
+      <supplies id="26">
+        <supply reference="12"/>
+        <supply reference="12"/>
+      </supplies>
+      <popularity>0</popularity>
+    </menuItem>
+  </menuItems>
+</FTMS>

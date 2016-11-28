@@ -3,7 +3,7 @@
     <equipment id="3">
       <name>Butter knife</name>
       <description>Careful it is sharp!</description>
-      <quantity>10</quantity>
+      <quantity>0</quantity>
     </equipment>
   </equipments>
   <supplies id="4"/>

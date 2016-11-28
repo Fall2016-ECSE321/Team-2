@@ -19,6 +19,8 @@ public class MenuItem
   //MenuItem Associations
   private List<Supply> supplies;
 
+  private int popularity;
+  
   //------------------------
   // CONSTRUCTOR
   //------------------------
@@ -27,12 +29,24 @@ public class MenuItem
   {
     name = aName;
     supplies = new ArrayList<Supply>();
+    popularity = 0;
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
+  public boolean setPopularity(int aPopularity){
+	  boolean wasSet = false;
+	  popularity = aPopularity;
+	  wasSet = true;
+	  return wasSet;
+  }
+  
+  public int getPopularity(){
+	  return popularity;
+  }
+  
   public boolean setName(String aName)
   {
     boolean wasSet = false;
@@ -84,7 +98,6 @@ public class MenuItem
   public boolean addSupply(Supply aSupply)
   {
     boolean wasAdded = false;
-    if (supplies.contains(aSupply)) { return false; }
     supplies.add(aSupply);
     wasAdded = true;
     return wasAdded;

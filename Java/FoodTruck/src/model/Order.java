@@ -67,7 +67,6 @@ public class Order
   public boolean addMenuItem(MenuItem aMenuItem)
   {
     boolean wasAdded = false;
-    if (menuItems.contains(aMenuItem)) { return false; }
     menuItems.add(aMenuItem);
     wasAdded = true;
     return wasAdded;

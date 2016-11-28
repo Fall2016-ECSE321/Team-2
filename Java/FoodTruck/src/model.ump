@@ -4,11 +4,11 @@ class FTMS
 {
   singleton;
   1 -> * Equipment equipments;
-  1 -> * Supply;
-  1 -> * Staff;
-  1 -> * Order;
-  1 -> * MenuItem;
-  1 <- * Manager;
+  1 -> * Supply supplies;
+  1 -> * Staff staffs;
+  1 -> * Order orders;
+  1 -> * MenuItem menuItems;
+  1 <- * Manager manager;
 }
 
 class Equipment
