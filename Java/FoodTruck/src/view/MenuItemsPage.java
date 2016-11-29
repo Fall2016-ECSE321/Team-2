@@ -55,6 +55,7 @@ public class MenuItemsPage extends JFrame {
 	private JTextArea menuItemInfo;
 	private String menuItemName;
 	private String menuItemIngredients;
+	private String menuItemPopularity;
 
 	// data elements
 	private String error = null;
@@ -121,6 +122,7 @@ public class MenuItemsPage extends JFrame {
 		menuItemScrollPane = new JScrollPane(menuItemList);
 		menuItemInfo = new JTextArea();
 		menuItemName = "";
+		menuItemPopularity = "";
 		menuItemIngredients = "";
 
 		// global settings
@@ -209,7 +211,7 @@ public class MenuItemsPage extends JFrame {
 		if(error == null || error.length() == 0){
 
 			// update menu item info
-			String text = String.format("Name: %s\nIngredients: %s", menuItemName, menuItemIngredients);
+			String text = String.format("Name: %s\nPopularity: %s\nIngredients: %s", menuItemName, menuItemPopularity, menuItemIngredients);
 			menuItemInfo.setText(text);
 			// update  menu item list
 			DefaultListModel model1 = new DefaultListModel();
@@ -279,6 +281,7 @@ public class MenuItemsPage extends JFrame {
 	public void menuItemListValueChanged(ListSelectionEvent evt){
 		FTMS master = FTMS.getInstance();
 		menuItemName = master.getMenuItem(menuItemList.getSelectedIndex()).getName();
+		menuItemPopularity = Integer.toString(master.getMenuItem(menuItemList.getSelectedIndex()).getPopularity());
 		menuItemIngredients = "";
 		for(int x = 0; x < master.getMenuItem(menuItemList.getSelectedIndex()).getSupplies().size(); x++){
 			menuItemIngredients += master.getMenuItem(menuItemList.getSelectedIndex()).getSupply(x).getName();
