@@ -238,17 +238,18 @@ public class MenuItemsPage extends JFrame {
 				supplyList4.addItem(p.getName());
 				index++;
 			}
-			selectedSupply1 = -1;
-			selectedSupply2 = -1;
-			selectedSupply3 = -1;
-			selectedSupply4 = -1;
-			supplyList1.setSelectedIndex(selectedSupply1);
-			supplyList2.setSelectedIndex(selectedSupply2);
-			supplyList3.setSelectedIndex(selectedSupply3);
-			supplyList4.setSelectedIndex(selectedSupply4);
-
-			menuItemNameTextField.setText("");
+			
 		}
+		selectedSupply1 = -1;
+		selectedSupply2 = -1;
+		selectedSupply3 = -1;
+		selectedSupply4 = -1;
+		supplyList1.setSelectedIndex(selectedSupply1);
+		supplyList2.setSelectedIndex(selectedSupply2);
+		supplyList3.setSelectedIndex(selectedSupply3);
+		supplyList4.setSelectedIndex(selectedSupply4);
+
+		menuItemNameTextField.setText("");
 		// this is needed because the size of the window changes depending on whether an error message is shown or not
 		pack();
 	}
