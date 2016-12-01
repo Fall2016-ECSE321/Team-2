@@ -1,5 +1,5 @@
 <?php
-require_once 'controller/Controller.php';
+require_once '../../controller/Controller.php';
 
 session_start();
 
@@ -43,6 +43,6 @@ try {
 
 <!DOCTYPE html> <html>
 	<head>
-			<meta http-equiv= "refresh" content="0; url=/FoodTruck/MenuItemPage.php" />
+			<meta http-equiv= "refresh" content="0; url=/FoodTruck/view/MenuItemPage.php" />
 	</head>
 </html> 	 

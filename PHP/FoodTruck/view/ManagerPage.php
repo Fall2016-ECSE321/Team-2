@@ -13,6 +13,6 @@
 		<input name="Staff" type="button" value="Staffs" onclick="window.open('StaffCreationPage.php','_self')"/>
 		<input name="MenuItem" type="button" value="Menu Items" onclick="window.open('MenuItemPage.php','_self')"/>
 		
-		<p><input name="Back" type="button" value="Back" onclick="window.open('index.php','_self')"/> </p>
+		<p><input name="Back" type="button" value="Back" onclick="window.open('../index.php','_self')"/> </p>
 	</body>	
 </html>
