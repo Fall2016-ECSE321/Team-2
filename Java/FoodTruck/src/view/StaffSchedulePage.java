@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -58,20 +59,8 @@ public class StaffSchedulePage extends JFrame {
 	private String staffName;
 	private String staffRole;
 	// for display schedule
-	private JLabel mondayLabel;
-	private JLabel tuesdayLabel;
-	private JLabel wednesdayLabel;
-	private JLabel thursdayLabel;
-	private JLabel fridayLabel;
-	private JLabel saturdayLabel;
-	private JLabel sundayLabel;
-	private JTextArea mondayInfo;
-	private JTextArea tuesdayInfo;
-	private JTextArea wednesdayInfo;
-	private JTextArea thursdayInfo;
-	private JTextArea fridayInfo;
-	private JTextArea saturdayInfo;
-	private JTextArea sundayInfo;
+	private JLabel[] dayLabels;
+	private JTextArea[] dayInfo;
 	// data elements
 	private String error = null;
 	private Integer selectedTime = -1;
@@ -83,10 +72,19 @@ public class StaffSchedulePage extends JFrame {
 			"2:30 PM - 2:59 PM", "3:00 PM - 3:29 PM", "3:30 PM - 3:59 PM", "4:00 PM - 4:29 PM", "4:30 PM - 4:59 PM",
 			"5:00 PM - 5:29 PM", "5:30 PM - 5:59 PM", "6:00 PM - 6:29 PM", "6:30 PM - 6:59 PM", "7:00 PM - 7:29 PM",
 			"7:30 PM - 7:59 PM", "8:00 PM - 8:29 PM", "8:30 PM - 8:59 PM", "9:00 PM - 9:29 PM", "9:30 PM - 9:59PM"};
+	private ArrayList<Time> mondaySchedule;
+	private ArrayList<Time> tuesdaySchedule;
+	private ArrayList<Time> wednesdaySchedule;
+	private ArrayList<Time> thursdaySchedule;
+	private ArrayList<Time> fridaySchedule;
+	private ArrayList<Time> saturdaySchedule;
+	private ArrayList<Time> sundaySchedule;
 	private Integer selectedTBStaff = -1;
 	private HashMap<Integer, Staff> staff;
 	private Integer selectedTBDayOfWeek = -1;
 	private String[] dayOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+	private String[] dayStrings;
+
 	/* Creates new form StaffSchedulePage */
 	public StaffSchedulePage() {
 		initComponents();
@@ -142,20 +140,19 @@ public class StaffSchedulePage extends JFrame {
 		staffRole = "";
 
 		// elements for display schedule
-		mondayLabel = new JLabel();
-		tuesdayLabel = new JLabel();
-		wednesdayLabel = new JLabel();
-		thursdayLabel = new JLabel();
-		fridayLabel = new JLabel();
-		saturdayLabel = new JLabel();
-		sundayLabel = new JLabel();
-		mondayInfo = new JTextArea();
-		tuesdayInfo = new JTextArea();
-		wednesdayInfo = new JTextArea();
-		thursdayInfo = new JTextArea();
-		fridayInfo = new JTextArea();
-		saturdayInfo = new JTextArea();
-		sundayInfo = new JTextArea();
+		dayLabels = new JLabel [7];
+		dayInfo = new JTextArea[7];
+		for (int x = 0; x < 7; x++){
+			dayLabels[x] = new JLabel();
+			dayInfo[x] = new JTextArea();
+		}
+		mondaySchedule = new ArrayList<Time>();
+		tuesdaySchedule = new ArrayList<Time>();
+		wednesdaySchedule = new ArrayList<Time>();
+		thursdaySchedule = new ArrayList<Time>();
+		fridaySchedule = new ArrayList<Time>();
+		saturdaySchedule = new ArrayList<Time>();
+		sundaySchedule = new ArrayList<Time>();
 
 		// global settings
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -183,13 +180,17 @@ public class StaffSchedulePage extends JFrame {
 		});
 
 		// display schedule settings
-		mondayLabel.setText("Monday");
-		tuesdayLabel.setText("Tuesday");
-		wednesdayLabel.setText("Wednesday");
-		thursdayLabel.setText("Thursday");
-		fridayLabel.setText("Friday");
-		saturdayLabel.setText("Saturday");
-		sundayLabel.setText("Sunday");
+		dayLabels[0].setText("Monday");
+		dayLabels[1].setText("Tuesday");
+		dayLabels[2].setText("Wednesday");
+		dayLabels[3].setText("Thursday");
+		dayLabels[4].setText("Friday");
+		dayLabels[5].setText("Saturday");
+		dayLabels[6].setText("Sunday");
+		dayStrings = new String[7];
+		for (int x = 0; x < 7; x++)
+			dayStrings[x] = "";
+
 		// create list listeners
 		staffList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent evt) {
@@ -223,32 +224,32 @@ public class StaffSchedulePage extends JFrame {
 								.addComponent(staffScrollPane, 200, 200, 400)
 								.addComponent(staffInfo))
 						.addGroup(layout.createParallelGroup()
-								.addComponent(mondayLabel)
-								.addComponent(mondayInfo))
+								.addComponent(dayLabels[0])
+								.addComponent(dayInfo[0]))
 						.addGroup(layout.createParallelGroup()
-								.addComponent(tuesdayLabel)
-								.addComponent(tuesdayInfo))
+								.addComponent(dayLabels[1])
+								.addComponent(dayInfo[1]))
 						.addGroup(layout.createParallelGroup()
-								.addComponent(wednesdayLabel)
-								.addComponent(wednesdayInfo))
+								.addComponent(dayLabels[2])
+								.addComponent(dayInfo[2]))
 						.addGroup(layout.createParallelGroup()
-								.addComponent(thursdayLabel)
-								.addComponent(thursdayInfo))
+								.addComponent(dayLabels[3])
+								.addComponent(dayInfo[3]))
 						.addGroup(layout.createParallelGroup()
-								.addComponent(fridayLabel)
-								.addComponent(fridayInfo))
+								.addComponent(dayLabels[4])
+								.addComponent(dayInfo[4]))
 						.addGroup(layout.createParallelGroup()
-								.addComponent(saturdayLabel)
-								.addComponent(saturdayInfo))
+								.addComponent(dayLabels[5])
+								.addComponent(dayInfo[5]))
 						.addGroup(layout.createParallelGroup()
-								.addComponent(sundayLabel)
-								.addComponent(sundayInfo))
+								.addComponent(dayLabels[6])
+								.addComponent(dayInfo[6]))
 						)
 				);
 		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addTBButton, addStaffButton, staffNameTextField, staffRoleTextField} );
 		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {staffNameTextField, tbTimeList, tbDayOfWeekList, tbStaffList});
 		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {staffScrollPane, staffInfo});
-		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {mondayLabel, tuesdayLabel, wednesdayLabel, thursdayLabel, fridayLabel, saturdayLabel, sundayLabel} );
+		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {dayLabels[0], dayLabels[1], dayLabels[2], dayLabels[3], dayLabels[4], dayLabels[5], dayLabels[6]} );
 
 		layout.setVerticalGroup(
 				layout.createSequentialGroup()
@@ -278,26 +279,26 @@ public class StaffSchedulePage extends JFrame {
 								.addComponent(staffScrollPane, 200, 200, 400)
 								.addComponent(staffInfo))
 						.addGroup(layout.createSequentialGroup()
-								.addComponent(mondayLabel)
-								.addComponent(mondayInfo))
+								.addComponent(dayLabels[0])
+								.addComponent(dayInfo[0]))
 						.addGroup(layout.createSequentialGroup()
-								.addComponent(tuesdayLabel)
-								.addComponent(tuesdayInfo))
+								.addComponent(dayLabels[1])
+								.addComponent(dayInfo[1]))
 						.addGroup(layout.createSequentialGroup()
-								.addComponent(wednesdayLabel)
-								.addComponent(wednesdayInfo))
+								.addComponent(dayLabels[2])
+								.addComponent(dayInfo[2]))
 						.addGroup(layout.createSequentialGroup()
-								.addComponent(thursdayLabel)
-								.addComponent(thursdayInfo))
+								.addComponent(dayLabels[3])
+								.addComponent(dayInfo[3]))
 						.addGroup(layout.createSequentialGroup()
-								.addComponent(fridayLabel)
-								.addComponent(fridayInfo))
+								.addComponent(dayLabels[4])
+								.addComponent(dayInfo[4]))
 						.addGroup(layout.createSequentialGroup()
-								.addComponent(saturdayLabel)
-								.addComponent(saturdayInfo))
+								.addComponent(dayLabels[5])
+								.addComponent(dayInfo[5]))
 						.addGroup(layout.createSequentialGroup()
-								.addComponent(sundayLabel)
-								.addComponent(sundayInfo)))
+								.addComponent(dayLabels[6])
+								.addComponent(dayInfo[6])))
 				);
 
 		pack();
@@ -311,7 +312,9 @@ public class StaffSchedulePage extends JFrame {
 			// update staff info
 			String text = String.format("Name: %s\nRole: %s", staffName, staffRole);
 			staffInfo.setText(text);
-
+			// update schedule info
+			for (int x = 0; x < 7; x++)
+				dayInfo[x].setText(dayStrings[x]);
 			// update lists
 			DefaultListModel model1 = new DefaultListModel();
 			staffNames.removeAll(staffNames);
@@ -338,6 +341,8 @@ public class StaffSchedulePage extends JFrame {
 			selectedTBDayOfWeek = -1;
 			tbDayOfWeekList.setSelectedIndex(selectedTBDayOfWeek);
 		}
+
+
 		selectedTime = -1;
 		tbTimeList.setSelectedIndex(selectedTime);
 		selectedTBStaff = -1;
@@ -598,7 +603,142 @@ public class StaffSchedulePage extends JFrame {
 		FTMS m = FTMS.getInstance();
 		staffName = m.getStaff(staffList.getSelectedIndex()).getName();
 		staffRole = m.getStaff(staffList.getSelectedIndex()).getRole();
+		clean();
+		for (int x = 0; x < m.getStaff(staffList.getSelectedIndex()).getTimeBlocks().size(); x++) {
+			loop1: switch (m.getStaff(staffList.getSelectedIndex()).getTimeBlock(x).getDayOfWeek()) {
+			case 0 :
+				mondaySchedule.add(m.getStaff(staffList.getSelectedIndex()).getTimeBlock(x).getStartTime());
+				break loop1;
+			case 1 :
+				tuesdaySchedule.add(m.getStaff(staffList.getSelectedIndex()).getTimeBlock(x).getStartTime());
+				break loop1;
+			case 2 :
+				wednesdaySchedule.add(m.getStaff(staffList.getSelectedIndex()).getTimeBlock(x).getStartTime());
+				break loop1;
+			case 3 :
+				thursdaySchedule.add(m.getStaff(staffList.getSelectedIndex()).getTimeBlock(x).getStartTime());
+				break loop1;
+			case 4 :
+				fridaySchedule.add(m.getStaff(staffList.getSelectedIndex()).getTimeBlock(x).getStartTime());
+				break loop1;
+			case 5 :
+				saturdaySchedule.add(m.getStaff(staffList.getSelectedIndex()).getTimeBlock(x).getStartTime());
+				break loop1;
+			case 6 :
+				sundaySchedule.add(m.getStaff(staffList.getSelectedIndex()).getTimeBlock(x).getStartTime());
+				break loop1;
+			default :
+				break loop1;
+			}
+		}
+		sort();
+		for (int x = 0; x < 7; x++) {
+			loop2: switch (x) {
+			case 0 :
+				for (int y = 0; y < mondaySchedule.size(); y++) {
+					String text = String.format("%s\n", mondaySchedule.get(y).toString());
+					dayStrings[0] += text;
+				}
+				break loop2;
+			case 1 :
+				for (int y = 0; y < tuesdaySchedule.size(); y++) {
+					String text = String.format("%s\n", tuesdaySchedule.get(y).toString());
+					dayStrings[1] += text;
+				}
+				break loop2;
+			case 2 :
+				for (int y = 0; y < wednesdaySchedule.size(); y++) {
+					String text = String.format("%s\n", wednesdaySchedule.get(y).toString());
+					dayStrings[2] += text;
+				}
+				break loop2;
+			case 3 :
+				for (int y = 0; y < thursdaySchedule.size(); y++) {
+					String text = String.format("%s\n", thursdaySchedule.get(y).toString());
+					dayStrings[3] += text;
+				}
+				break loop2;
+			case 4 :
+				for (int y = 0; y < fridaySchedule.size(); y++) {
+					String text = String.format("%s\n", fridaySchedule.get(y).toString());
+					dayStrings[4] += text;
+				}
+				break loop2;
+			case 5 :
+				for (int y = 0; y < saturdaySchedule.size(); y++) {
+					String text = String.format("%s\n", saturdaySchedule.get(y).toString());
+					dayStrings[5] += text;
+				}
+				break loop2;
+			case 6 :
+				for (int y = 0; y < sundaySchedule.size(); y++) {
+					String text = String.format("%s\n", sundaySchedule.get(y).toString());
+					dayStrings[6] += text;
+				}
+				break loop2;
+			default :
+				break loop2;
+			}
+		}
 		// update visuals
 		refreshData();
+	}
+
+	private void clean() {
+		for (int x = 0; x < 7; x++){
+			dayStrings[x] = "";
+		}
+		mondaySchedule.removeAll(mondaySchedule);
+		tuesdaySchedule.removeAll(tuesdaySchedule);
+		wednesdaySchedule.removeAll(wednesdaySchedule);
+		thursdaySchedule.removeAll(thursdaySchedule);
+		fridaySchedule.removeAll(fridaySchedule);
+		saturdaySchedule.removeAll(saturdaySchedule);
+		sundaySchedule.removeAll(sundaySchedule);
+	}
+
+	private void sort() {
+		for (int x = 0; x < mondaySchedule.size() - 1; x++) {
+			for (int y = x + 1; y < mondaySchedule.size(); y++) {
+				if (mondaySchedule.get(x).after(mondaySchedule.get(y)))
+					Collections.swap(mondaySchedule, x, y);
+			}
+		}
+		for (int x = 0; x < tuesdaySchedule.size() - 1; x++) {
+			for (int y = 0; y < tuesdaySchedule.size(); y++) {
+				if (tuesdaySchedule.get(x).after(tuesdaySchedule.get(y)))
+					Collections.swap(tuesdaySchedule, x, y);
+			}
+		}
+		for (int x = 0; x < wednesdaySchedule.size() - 1; x++) {
+			for (int y = 0; y < wednesdaySchedule.size(); y++) {
+				if (wednesdaySchedule.get(x).after(wednesdaySchedule.get(y)))
+					Collections.swap(wednesdaySchedule, x, y);
+			}
+		}
+		for (int x = 0; x < thursdaySchedule.size() - 1; x++) {
+			for (int y = 0; y < thursdaySchedule.size(); y++) {
+				if (thursdaySchedule.get(x).after(thursdaySchedule.get(y)))
+					Collections.swap(thursdaySchedule, x, y);
+			}
+		}
+		for (int x = 0; x < fridaySchedule.size() - 1; x++) {
+			for (int y = 0; y < fridaySchedule.size(); y++) {
+				if (fridaySchedule.get(x).after(fridaySchedule.get(y)))
+					Collections.swap(fridaySchedule, x, y);
+			}
+		}
+		for (int x = 0; x < saturdaySchedule.size() - 1; x++) {
+			for (int y = 0; y < saturdaySchedule.size(); y++) {
+				if (saturdaySchedule.get(x).after(saturdaySchedule.get(y)))
+					Collections.swap(saturdaySchedule, x, y);
+			}
+		}
+		for (int x = 0; x < sundaySchedule.size() - 1; x++) {
+			for (int y = 0; y < sundaySchedule.size(); y++) {
+				if (sundaySchedule.get(x).after(sundaySchedule.get(y)))
+					Collections.swap(sundaySchedule, x, y);
+			}
+		}
 	}
 }
