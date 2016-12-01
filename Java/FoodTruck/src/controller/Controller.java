@@ -214,7 +214,7 @@ public class Controller {
 					}
 				}
 				if(flag == 0){
-					String txt = String.format("This %s is unavailable at the moment!", order.getMenuItem(x));
+					String txt = String.format("%s is unavailable at the moment!", order.getMenuItem(x).getName());
 					error += txt;
 					error = error.trim();
 					if(error.length() > 0)

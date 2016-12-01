@@ -142,7 +142,7 @@ public class TestController {
 	}
 
 	@Test
-	public void testCreateEquipmentQuanityNotInteger(){
+	public void testCreateEquipmentQuantityNotInteger(){
 		FTMS master = FTMS.getInstance();
 		assertEquals(0, master.getEquipments().size());
 		String name = "Butter knife";

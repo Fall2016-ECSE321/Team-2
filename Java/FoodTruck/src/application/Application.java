@@ -3,6 +3,7 @@ package application;
 import persistence.Persistence;
 import view.EquipmentSuppliesPage;
 import view.MenuItemsPage;
+import view.OrdersPage;
 
 public class Application {
 
@@ -13,8 +14,8 @@ public class Application {
 			public void run(){
 				new EquipmentSuppliesPage().setVisible(true);
 				new MenuItemsPage().setVisible(true);
+				new OrdersPage().setVisible(true);
 			}
 		});
 	}
-
 }

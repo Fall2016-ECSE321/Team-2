@@ -45,59 +45,197 @@
     <supply id="12">
       <name>Tomato</name>
       <description></description>
-      <quantity>11</quantity>
+      <quantity>2</quantity>
     </supply>
     <supply id="13">
       <name>Apple</name>
       <description></description>
-      <quantity>5</quantity>
+      <quantity>0</quantity>
     </supply>
     <supply id="14">
       <name>Kris</name>
       <description>YAY I CAN GO HOME AND EAT NOW</description>
-      <quantity>2</quantity>
+      <quantity>0</quantity>
     </supply>
     <supply id="15">
       <name>Flour</name>
       <description></description>
-      <quantity>10</quantity>
+      <quantity>0</quantity>
+    </supply>
+    <supply id="16">
+      <name>Apple</name>
+      <description></description>
+      <quantity>193</quantity>
+    </supply>
+    <supply id="17">
+      <name>Flour</name>
+      <description></description>
+      <quantity>293</quantity>
+    </supply>
+    <supply id="18">
+      <name>Banana</name>
+      <description></description>
+      <quantity>990</quantity>
+    </supply>
+    <supply id="19">
+      <name>Mango</name>
+      <description></description>
+      <quantity>990</quantity>
     </supply>
   </supplies>
-  <staffs id="16"/>
-  <orders id="17"/>
-  <menuItems id="18">
-    <menuItem id="19">
-      <name>Krusher</name>
-      <supplies id="20">
-        <supply reference="12"/>
-        <supply reference="13"/>
-        <supply reference="14"/>
-      </supplies>
-      <popularity>0</popularity>
-    </menuItem>
-    <menuItem id="21">
-      <name>Apple Pie</name>
-      <supplies id="22">
-        <supply reference="15"/>
-        <supply reference="13"/>
-      </supplies>
-      <popularity>0</popularity>
-    </menuItem>
-    <menuItem id="23">
+  <staffs id="20"/>
+  <orders id="21">
+    <order id="22">
+      <menuItems id="23">
+        <menuItem id="24">
+          <name>Tomato Pie</name>
+          <supplies id="25">
+            <supply reference="12"/>
+            <supply reference="15"/>
+          </supplies>
+          <popularity>6</popularity>
+        </menuItem>
+        <menuItem id="26">
+          <name>Krusher</name>
+          <supplies id="27">
+            <supply reference="12"/>
+            <supply reference="13"/>
+            <supply reference="14"/>
+          </supplies>
+          <popularity>2</popularity>
+        </menuItem>
+      </menuItems>
+      <id>1</id>
+    </order>
+    <order id="28">
+      <menuItems id="29">
+        <menuItem id="30">
+          <name>Apple Pie</name>
+          <supplies id="31">
+            <supply reference="15"/>
+            <supply reference="13"/>
+          </supplies>
+          <popularity>9</popularity>
+        </menuItem>
+        <menuItem reference="26"/>
+      </menuItems>
+      <id>2</id>
+    </order>
+    <order id="32">
+      <menuItems id="33">
+        <menuItem reference="30"/>
+      </menuItems>
+      <id>1</id>
+    </order>
+    <order id="34">
+      <menuItems id="35">
+        <menuItem reference="30"/>
+      </menuItems>
+      <id>1</id>
+    </order>
+    <order id="36">
+      <menuItems id="37">
+        <menuItem reference="24"/>
+      </menuItems>
+      <id>2</id>
+    </order>
+    <order id="38">
+      <menuItems id="39">
+        <menuItem reference="24"/>
+      </menuItems>
+      <id>4</id>
+    </order>
+    <order id="40">
+      <menuItems id="41">
+        <menuItem reference="24"/>
+      </menuItems>
+      <id>5</id>
+    </order>
+    <order id="42">
+      <menuItems id="43">
+        <menuItem reference="30"/>
+      </menuItems>
+      <id>-1328546021</id>
+    </order>
+    <order id="44">
+      <menuItems id="45">
+        <menuItem reference="30"/>
+      </menuItems>
+      <id>-1328541662</id>
+    </order>
+    <order id="46">
+      <menuItems id="47">
+        <menuItem reference="24"/>
+      </menuItems>
+      <id>-1328534734</id>
+    </order>
+    <order id="48">
+      <menuItems id="49">
+        <menuItem reference="30"/>
+      </menuItems>
+      <id>1328471652</id>
+    </order>
+    <order id="50">
+      <menuItems id="51">
+        <menuItem reference="30"/>
+      </menuItems>
+      <id>1328460461</id>
+    </order>
+    <order id="52">
+      <menuItems id="53">
+        <menuItem reference="30"/>
+      </menuItems>
+      <id>-966568284</id>
+    </order>
+    <order id="54">
+      <menuItems id="55">
+        <menuItem reference="30"/>
+      </menuItems>
+      <id>671638213</id>
+    </order>
+    <order id="56">
+      <menuItems id="57">
+        <menuItem reference="24"/>
+      </menuItems>
+      <id>671641516</id>
+    </order>
+    <order id="58">
+      <menuItems id="59">
+        <menuItem id="60">
+          <name>Banana Mango Smoothie</name>
+          <supplies id="61">
+            <supply reference="18"/>
+            <supply reference="19"/>
+            <supply reference="18"/>
+            <supply reference="19"/>
+          </supplies>
+          <popularity>5</popularity>
+        </menuItem>
+      </menuItems>
+      <id>673318367</id>
+    </order>
+    <order id="62">
+      <menuItems id="63">
+        <menuItem reference="60"/>
+        <menuItem reference="60"/>
+        <menuItem reference="60"/>
+        <menuItem reference="60"/>
+      </menuItems>
+      <id>673324734</id>
+    </order>
+  </orders>
+  <menuItems id="64">
+    <menuItem reference="26"/>
+    <menuItem reference="30"/>
+    <menuItem reference="24"/>
+    <menuItem id="65">
       <name>Tomato Pie</name>
-      <supplies id="24">
-        <supply reference="12"/>
-        <supply reference="15"/>
-      </supplies>
-      <popularity>0</popularity>
-    </menuItem>
-    <menuItem id="25">
-      <name>Tomato Pie</name>
-      <supplies id="26">
+      <supplies id="66">
         <supply reference="12"/>
         <supply reference="12"/>
       </supplies>
-      <popularity>0</popularity>
+      <popularity>6</popularity>
     </menuItem>
+    <menuItem reference="60"/>
   </menuItems>
 </FTMS>

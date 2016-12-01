@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="ca.mcgill.ecse321.android_full_ftms.MenuActivity"
+    tools:showIn="@layout/activity_menu">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Menu Item"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:gravity="left"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/fMenuItemLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="false"
+            android:layout_marginTop="10dp">
+        </android.support.design.widget.TextInputLayout>
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/newmenuitem_name"
+            android:hint="@string/newmenuitem_hint"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/supply1spinner_label"/>
+            <Spinner
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_gravity="end"
+                android:id="@+id/supply1spinner"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/supply2spinner_label"/>
+            <Spinner
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_gravity="end"
+                android:id="@+id/supply2spinner"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/supply3spinner_label"/>
+            <Spinner
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_gravity="end"
+                android:id="@+id/supply3spinner"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/supply4spinner_label"/>
+            <Spinner
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_gravity="end"
+                android:id="@+id/supply4spinner"/>
+        </LinearLayout>
+
+        <Button
+            android:backgroundTint="@color/peach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/newMenuItem_button"
+            android:layout_gravity="end"
+            android:onClick="addMenuItem"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Menu"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:gravity="left"/>
+
+        <ScrollView
+            android:layout_height="150dp"
+            android:layout_width="fill_parent"
+            android:fillViewport="true">
+
+            <ListView
+                android:id="@+id/menuitemslist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="#b5b5b5"
+                android:gravity="center"
+                android:dividerHeight="1dp"/>
+
+        </ScrollView>
+
+        <Button
+            android:backgroundTint="@color/peach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/goToDetailedMenuPage_button"
+            android:layout_gravity="end"
+            android:onClick="goToDetailedMenuPage"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
