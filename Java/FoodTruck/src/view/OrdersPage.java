@@ -209,7 +209,6 @@ public class OrdersPage extends JFrame{
 		errorMessage.setText(error);
 		if (error == null || error.length() == 0) {
 
-
 			// update items
 			items = new HashMap<Integer, MenuItem>();
 			itemList1.removeAllItems();
