@@ -10,9 +10,6 @@ require_once __DIR__.'/../model/MenuItem.php';
 require_once __DIR__.'/../model/Order.php';
 
 
-//TODO: refactor the check if empty ones to a method
-//TODO: add maybe the space test case
-
 class ControllerTest extends PHPUnit_Framework_TestCase
 {
 	protected $c;
@@ -21,6 +18,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 	protected function setUp()
 	{
+		//wipe out all previou data for clean test
 		$this->c = new Controller();
 		$this->pm = new PersistenceFoodTruck();
 		$this->ftms = $this->pm->loadDataFromStore();
@@ -31,7 +29,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	protected function tearDown()
 	{
 	}
-	
+	//**** Test for CreateEquipment()
 	public function testCreateEquipment() {
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
 	
@@ -47,14 +45,11 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check file contents
 		$this->ftms = $this->pm->loadDataFromStore();
-		$this->assertEquals(1, count($this->ftms->getEquipment()));
 		$this->assertEquals($name, $this->ftms->getEquipment_index(0)->getName());
 		$this->assertEquals($quantity, $this->ftms->getEquipment_index(0)->getQuantity());
+		//helper method: check that every model is null (exceptions) in file
+		$this->checkForNull(array(0));
 		
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-// 		$this->assertEquals(0, count($this->ftms->getEvents()));
-// 		$this->assertEquals(0, count($this->ftms->getRegistrations()));
 	}
 	public function testCreateEquipmentNull() {
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
@@ -70,14 +65,9 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@1Equipment name cannot be empty! @2Equipment quantity cannot be empty!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
 		
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-// 		$this->assertEquals(0, count($this->rm->getEvents()));
-// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
 	}
 	public function testCreateEquipmentEmpty() {
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
@@ -93,13 +83,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@1Equipment name cannot be empty! @2Equipment quantity cannot be empty!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		// 		$this->assertEquals(0, count($this->rm->getEvents()));
-		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
 	}
 	
 	public function testCreateEquipmentQuantityNotInt() {
@@ -116,14 +101,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@2Equipment quantity must be a positive integer!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-	
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		// 		$this->assertEquals(0, count($this->rm->getEvents()));
-		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
 	}
 	
 	public function testCreateEquipmentQuantityNegative() {
@@ -140,14 +119,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@2Equipment quantity must be a positive integer!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-	
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		// 		$this->assertEquals(0, count($this->rm->getEvents()));
-		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
 	}
 	public function testCreateEquipmentTooLong() {
 		$this->assertEquals(0, count($this->ftms->getEquipment()));
@@ -163,17 +136,11 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@1Equipment name cannot be longer than 50 characters! @2Equipment quantity cannot have more than 9 digits!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-	
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		// 		$this->assertEquals(0, count($this->rm->getEvents()));
-		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
 	}
 	
-	//**
+	//**** Test for CreateSupply()
 	public function testCreateSupply() {
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
 	
@@ -189,14 +156,11 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check file contents
 		$this->ftms = $this->pm->loadDataFromStore();
-		$this->assertEquals(1, count($this->ftms->getSupplies()));
 		$this->assertEquals($name, $this->ftms->getSupply_index(0)->getName());
 		$this->assertEquals($quantity, $this->ftms->getSupply_index(0)->getQuantity());
-		
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		// 		$this->assertEquals(0, count($this->ftms->getEvents()));
-		// 		$this->assertEquals(0, count($this->ftms->getRegistrations()));
+		//helper method: check that every model is null (exceptions) in file
+		$this->checkForNull(array(1));
+	
 	}
 	public function testCreateSupplyNull() {
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
@@ -212,14 +176,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@1Supply name cannot be empty! @2Supply quantity cannot be empty!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-	
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		// 		$this->assertEquals(0, count($this->rm->getEvents()));
-		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
 	}
 	public function testCreateSupplyEmpty() {
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
@@ -235,14 +193,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@1Supply name cannot be empty! @2Supply quantity cannot be empty!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-		
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		// 		$this->assertEquals(0, count($this->rm->getEvents()));
-		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
 	}
 	
 	public function testCreateSupplyQuantityNotInt() {
@@ -259,14 +211,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@2Supply quantity must be a positive integer!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-	
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		// 		$this->assertEquals(0, count($this->rm->getEvents()));
-		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
 	}
 	
 	public function testCreateSupplyQuantityNegative() {
@@ -284,14 +230,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		// check error
 		$this->assertEquals("@2Supply quantity must be a positive integer!", $error);
 		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-	
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-	
-		// 		$this->assertEquals(0, count($this->rm->getEvents()));
-		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+		//helper method: check that every model is null in persistence
+		$this->checkForNull(array());
 	}
 	public function testCreateSupplyTooLong() {
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
@@ -307,16 +247,10 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@1Supply name cannot be longer than 50 characters! @2Supply quantity cannot have more than 9 digits!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-	
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		// 		$this->assertEquals(0, count($this->rm->getEvents()));
-		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
 	}
-	//**
+	//** Test for CreateTimeblock()
 	public function testCreateTimeBlock() {
 		$this->assertEquals(0, count($this->ftms->getTimeBlocks()));
 		$this->assertEquals(0, count($this->ftms->getStaffs()));
@@ -345,15 +279,12 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		 
 		// check file contents
 		$this->ftms = $this->pm->loadDataFromStore();
-		$this->assertEquals(1, count($this->ftms->getTimeBlock_index(0)));
-		$this->assertEquals(1, count($this->ftms->getStaff_index(0)));
 		$this->assertEquals($day, $this->ftms->getTimeBlock_index(0)->getDayOfWeek());
 		$this->assertEquals($starttime, $this->ftms->getTimeBlock_index(0)->getStartTime());
 		$this->assertEquals($endtime, $this->ftms->getTimeBlock_index(0)->getEndTime());
 		$this->assertEquals($this->ftms->getTimeBlock_index(0), $this->ftms->getStaff_index(0)->getTimeBlock_index(0));
-
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		//helper method: check that every model is null (exceptions) in file
+		$this->checkForNull(array(2,3));
 	}
 	
 	public function testCreateTimeBlockNull() {
@@ -373,13 +304,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@1Time block day of the week cannot be empty! @2Time block start time must be specified correctly (HH:MM)! @3Time block end time must be specified correctly (HH:MM)! @4Staff not found!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-		
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		$this->assertEquals(0, count($this->ftms->getTimeBlocks()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
 		
 	}
 	
@@ -400,13 +326,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@1Time block day of the week cannot be empty! @2Time block start time must be specified correctly (HH:MM)! @3Time block end time must be specified correctly (HH:MM)! @4Staff not found!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-		
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		$this->assertEquals(0, count($this->ftms->getTimeBlocks()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
 	}
 	public function testCreateTimeBlockEndTimeBeforeStartTime() {
 		$this->assertEquals(0, count($this->ftms->getTimeBlocks()));
@@ -435,15 +356,10 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@3Time block end time cannot be before Time block start time!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-	
-		$this->assertEquals(1, count($this->ftms->getStaffs()));
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getTimeBlocks()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array(3));
 	}
-	//**
+	//** test for CreateStaff()
 	public function testCreateStaff() {
 		$this->assertEquals(0, count($this->ftms->getStaffs()));
 	
@@ -459,14 +375,10 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check file contents
 		$this->ftms = $this->pm->loadDataFromStore();
-		$this->assertEquals(1, count($this->ftms->getStaffs()));
 		$this->assertEquals($name, $this->ftms->getStaff_index(0)->getName());
 		$this->assertEquals($role, $this->ftms->getStaff_index(0)->getRole());
-	
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		// 		$this->assertEquals(0, count($this->ftms->getEvents()));
-		// 		$this->assertEquals(0, count($this->ftms->getRegistrations()));
+		//helper method: check that every model is null (exceptions) in file
+		$this->checkForNull(array(3));
 	}
 	public function testCreateStaffNull() {
 		$this->assertEquals(0, count($this->ftms->getStaffs()));
@@ -482,14 +394,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@1Staff name cannot be empty! @2Staff role cannot be empty!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-		
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		//this->assertEquals(0, count($this->rm->getEvents()));
-		//$this->assertEquals(0, count($this->rm->getRegistrations()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
 	}
 	public function testCreateStaffEmpty() {
 		$this->assertEquals(0, count($this->ftms->getStaffs()));
@@ -505,14 +411,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@1Staff name cannot be empty! @2Staff role cannot be empty!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-	
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		// 		$this->assertEquals(0, count($this->rm->getEvents()));
-		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
 	}
 	public function testCreateStaffTooLong() {
 		$this->assertEquals(0, count($this->ftms->getStaffs()));
@@ -528,16 +428,10 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@1Staff name cannot be longer than 50 characters! @2Staff role cannot be longer than 50 characters!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-	
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		// 		$this->assertEquals(0, count($this->rm->getEvents()));
-		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
 	}
-	//***
+	//**** Test for CreateMenuItem()
 	public function testCreateMenuItem() {
 		$this->assertEquals(0, count($this->ftms->getMenuItems()));
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
@@ -562,17 +456,12 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check file contents
 		$this->ftms = $this->pm->loadDataFromStore();
-		$this->assertEquals(1, count($this->ftms->getMenuItems()));
-		$this->assertEquals(1, count($this->ftms->getSupplies()));
 		$this->assertEquals($nameS, $this->ftms->getSupply_index(0)->getName());
 		$this->assertEquals($quantityS, $this->ftms->getSupply_index(0)->getQuantity());
 		$this->assertEquals($name, $this->ftms->getMenuItem_index(0)->getName());
 		$this->assertEquals($this->ftms->getSupply_index(0), $this->ftms->getMenuItem_index(0)->getSupply_index(0));
-		
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		// 		$this->assertEquals(0, count($this->ftms->getEvents()));
-		// 		$this->assertEquals(0, count($this->ftms->getRegistrations()));
+		//helper method: check that every model is null (exceptions) in file
+		$this->checkForNull(array(1,4));
 	}
  	public function testCreateMenuItemNull() {
 		$this->assertEquals(0, count($this->ftms->getMenuItems()));
@@ -589,17 +478,9 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@1Menu item name cannot be empty! @2Menu item ingredient not found!", $error);
-		
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-	
-		$this->assertEquals(0, count($this->ftms->getMenuItems()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		//this->assertEquals(0, count($this->rm->getEvents()));
-		//$this->assertEquals(0, count($this->rm->getRegistrations()));
-	}
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
+ 	}
 	public function testCreateMenuItemSupplyDoNotExist() {
 		$this->assertEquals(0, count($this->ftms->getMenuItems()));
 		$this->assertEquals(0, count($this->ftms->getSupplies()));
@@ -628,12 +509,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		 
 		// check error
 		$this->assertEquals("@2Menu item ingredient not found!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-		$this->assertEquals(0, count($this->ftms->getMenuItems()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
 	}
 	public function testCreateMenuItemTooLong() {
 		$this->assertEquals(0, count($this->ftms->getMenuItems()));
@@ -657,17 +534,10 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("@1Menu item name cannot be longer than 50 characters!", $error);
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-	
-		$this->assertEquals(0, count($this->ftms->getMenuItems()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		$this->assertEquals(1, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		// 		$this->assertEquals(0, count($this->rm->getEvents()));
-		// 		$this->assertEquals(0, count($this->rm->getRegistrations()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array(1));
 	}
-	//***
+	//*** Test for CreateOder()
 	public function testCreateOrder() {
 		$this->assertEquals(0, count($this->ftms->getOrders()));
 		$this->assertEquals(0, count($this->ftms->getMenuItems()));
@@ -699,19 +569,12 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check file contents
 		$this->ftms = $this->pm->loadDataFromStore();
-		$this->assertEquals(1, count($this->ftms->getOrders()));
-		$this->assertEquals(1, count($this->ftms->getMenuItems()));
-		$this->assertEquals(1, count($this->ftms->getSupplies()));
 		$this->assertEquals($nameM, $this->ftms->getMenuItem_index(0)->getName());
 		$this->assertEquals(1, $this->ftms->getMenuItem_index(0)->getPopularity());
 		$this->assertEquals(3, $this->ftms->getMenuItem_index(0)->getSupply_index(0)->getQuantity());
-		
 		$this->assertEquals($this->ftms->getMenuItem_index(0), $this->ftms->getOrder_index(0)->getMenuItem_index(0));
-	
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		// 		$this->assertEquals(0, count($this->ftms->getEvents()));
-		// 		$this->assertEquals(0, count($this->ftms->getRegistrations()));
+		//helper method: check that every model is null (exceptions) in file
+		$this->checkForNull(array(1,4,5));
 	}
 	public function testCreateOrderNull() {
 		$this->assertEquals(0, count($this->ftms->getOrders()));
@@ -727,17 +590,9 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	
 		// check error
 		$this->assertEquals("Order Menu item not found!", $error);
-	
-		// check file contents
-		$this->ftms = $this->pm->loadDataFromStore();
-	
-		$this->assertEquals(0, count($this->ftms->getOrders()));
-		$this->assertEquals(0, count($this->ftms->getMenuItems()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));
-		//this->assertEquals(0, count($this->rm->getEvents()));
-		//$this->assertEquals(0, count($this->rm->getRegistrations()));
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
+		
 	}
 	public function testCreateOrderMenuItemDoNotExist() {
 		$this->assertEquals(0, count($this->ftms->getMenuItems()));
@@ -775,12 +630,24 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 			
 		// check error
 		$this->assertEquals("Order Menu item not found!", $error);
-		// check file contents
+		//helper method: check that every model is null in file
+		$this->checkForNull(array());
+	}
+	private function checkForNull($exceptions){
+		$count = array(0,0,0,0,0,0);
 		$this->ftms = $this->pm->loadDataFromStore();
-		$this->assertEquals(0, count($this->ftms->getOrders()));
-		$this->assertEquals(0, count($this->ftms->getMenuItems()));
-		$this->assertEquals(0, count($this->ftms->getStaffs()));
-		$this->assertEquals(0, count($this->ftms->getSupplies()));
-		$this->assertEquals(0, count($this->ftms->getEquipment()));	}
+		if($exceptions!=NULL){
+			foreach ($exceptions as $index){
+				$count[$index] = 1;
+			}
+		}
+		$this->assertEquals($count[0], count($this->ftms->getEquipment()));
+		$this->assertEquals($count[1], count($this->ftms->getSupplies()));
+		$this->assertEquals($count[2], count($this->ftms->getTimeBlocks()));
+		$this->assertEquals($count[3], count($this->ftms->getStaffs()));
+		$this->assertEquals($count[4], count($this->ftms->getMenuItems()));
+		$this->assertEquals($count[5], count($this->ftms->getOrders()));	
+	}
+		
 }
 

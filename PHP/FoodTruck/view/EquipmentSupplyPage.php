@@ -20,10 +20,10 @@
 	</head>
 	<body>
 		<?php 
-			require_once "model/Equipment.php";
-			require_once "model/Supply.php";
-			require_once "model/FTMS.php";
-			require_once 'persistence/PersistenceFoodTruck.php';
+			require_once "../model/Equipment.php";
+			require_once "../model/Supply.php";
+			require_once "../model/FTMS.php";
+			require_once '../persistence/PersistenceFoodTruck.php';
 				
 			session_start();
 
@@ -56,7 +56,7 @@
 			}
 			echo"</tr></table></p></div>";
 		?>
-		<div id="form"><form action="addEquipment.php" method="post">
+		<div id="form"><form action="sessions/addEquipment.php" method="post">
 			<p>Equipment name? <input type ="text" name ="equipment_name" />
 				<span class="error">
 				<?php 
@@ -75,7 +75,7 @@
 			</span></p>
 			<p><input type="submit" value="Add Equipment"/></p>
 		</form>
-		<form action="addSupply.php" method="post">
+		<form action="sessions/addSupply.php" method="post">
 			<p>Supply name? <input type ="text" name ="supply_name" />
 				<span class="error">
 				<?php 

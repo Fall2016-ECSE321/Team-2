@@ -16,7 +16,7 @@ class Controller{
 	public function __construct(){
 
 	}
-//TODO: length evaluation (string less than 50 etc)
+
 	public function createEquipment($equipment_name, $equipment_quantity){
 		//1. Validate input
 		$error = "";
@@ -35,6 +35,7 @@ class Controller{
 			//4. Write all of the data
 			$pm->writeDataToStore($rm);
 		}
+		//if there is an input error
 		else {
 			if ($name == null || strlen($name)==0) {
 				$error .= "@1Equipment name cannot be empty! ";

@@ -20,10 +20,10 @@
 	</head>
 	<body>
 		<?php 
-			require_once "model/Staff.php";
-			require_once "model/TimeBlock.php";
-			require_once "model/FTMS.php";
-			require_once 'persistence/PersistenceFoodTruck.php';
+			require_once "../model/Staff.php";
+			require_once "../model/TimeBlock.php";
+			require_once "../model/FTMS.php";
+			require_once '../persistence/PersistenceFoodTruck.php';
 				
 			session_start();
 
@@ -73,7 +73,7 @@
 			}
 			echo"</table></p></div>";
 		?>
-		<div id="form"><form action="addStaff.php" method="post">
+		<div id="form"><form action="sessions/addStaff.php" method="post">
 			<p>Staff name? <input type ="text" name ="staff_name" />
 				<span class="error">
 				<?php 
@@ -93,7 +93,7 @@
 			<p><input type="submit" value="Register Staff"/></p>
 		</form>
 		
-		<form action="addTimeBlock.php" method="post">
+		<form action="sessions/addTimeBlock.php" method="post">
 		<?php 
 			//ask for day of the week of time block
 			echo "<p>Which Day? <select name = 'dayspinner'>";
