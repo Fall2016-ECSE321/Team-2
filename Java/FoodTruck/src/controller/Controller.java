@@ -53,7 +53,7 @@ public class Controller {
 				}
 				if(numZero == nonValidatedQuantity.length())	// if input is all zeros then set it to zero
 					validatedQuantity = "0";
-				
+
 				for(int i =0; i < nonValidatedQuantity.length() - numZero; i++){
 					validatedQuantity += nonValidatedQuantity.charAt(i + numZero);
 				}
@@ -171,24 +171,35 @@ public class Controller {
 
 	// for dayOfWeek use 1 for Monday, ... , 7 for Sunday
 	public void createTimeBlock(Time startTime, Time endTime, int dayOfWeek, Staff staff) throws InvalidInputException{
+		FTMS master = FTMS.getInstance();
 		String error = "";
-		if(startTime == null)
+		if (startTime == null)
 			error += "Time block start time cannot be empty! ";
-		if(endTime == null)
+		if (endTime == null)
 			error += "Time block end time cannot be empty! ";
-		if(dayOfWeek < 1 || dayOfWeek > 7)
+		if (dayOfWeek < 0 || dayOfWeek > 6)
 			error += "Time block day of the week must be between Monday and Sunday! ";
-		if(startTime != null && endTime != null && endTime.getTime() < startTime.getTime())
+		if (startTime != null && endTime != null && endTime.getTime() < startTime.getTime())
 			error += "Time block end time cannot be before start time! ";
-		if(staff == null)
-			error += "Time block must be assigned to a staff!";
+		if (staff == null)
+			error += "Time block must be assigned to a staff! ";
+		if (dayOfWeek >= 0 && dayOfWeek <= 6 && staff != null) {
+			for (int x = 0; x < master.getStaffs().size(); x++) {
+				if (master.getStaff(x).getName() == staff.getName())
+					for (int i = 0; i < master.getStaff(x).getTimeBlocks().size(); i++) {
+						if (dayOfWeek == master.getStaff(x).getTimeBlock(i).getDayOfWeek() && startTime.toString().equals(master.getStaff(x).getTimeBlock(i).getStartTime().toString())) {
+							error += "This time block has already been added! ";
+							break;
+						}
+					}
+			}
+		}
 		error = error.trim();
 		if(error.length() > 0)
 			throw new InvalidInputException(error);
 		TimeBlock timeBlock = new TimeBlock(startTime, endTime, dayOfWeek);
-		FTMS master = FTMS.getInstance();
 		for(int x = 0; x < master.getStaffs().size(); x++){
-			if(master.getStaff(x) == staff)
+			if(master.getStaff(x).getName() == staff.getName())
 				master.getStaff(x).addTimeBlock(timeBlock);
 		}
 		PersistenceXStream.saveToXMLwithXStream(master);
@@ -228,7 +239,7 @@ public class Controller {
 					master.getMenuItem(y).setPopularity(master.getMenuItem(y).getPopularity() + 1);
 			}
 		}
-		
+
 		master.addOrder(order);
 
 		PersistenceXStream.saveToXMLwithXStream(master);
