@@ -57,6 +57,9 @@ public class MenuItemsPage extends JFrame {
 	private String menuItemIngredients;
 	private String menuItemPopularity;
 
+	// refresh button
+	private JButton refreshButton;
+
 	// data elements
 	private String error = null;
 	private Integer selectedSupply1 = -1;
@@ -66,13 +69,13 @@ public class MenuItemsPage extends JFrame {
 	private HashMap<Integer, Supply> supplies;
 
 	/* Creates new form MenuItemsPage */
-	public MenuItemsPage(){
+	public MenuItemsPage() {
 		initComponents();
 		refreshData();
 	}
 
 	/* This method is called from within the constructor to initialize the form. */
-	private void initComponents(){
+	private void initComponents() {
 		// elements for error message
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
@@ -125,6 +128,15 @@ public class MenuItemsPage extends JFrame {
 		menuItemPopularity = "";
 		menuItemIngredients = "";
 
+		// refresh button
+		refreshButton = new JButton();
+		refreshButton.setText("Refresh");
+		refreshButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				refreshButtonActionPerformed(evt);
+			}
+		});
+
 		// global settings
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Menu Items");
@@ -173,8 +185,11 @@ public class MenuItemsPage extends JFrame {
 								.addComponent(addMenuItemButton)))
 				.addComponent(menuItemScrollPane)
 				.addComponent(menuItemInfo)
+				.addComponent(refreshButton, 500, 500, 600)
 				);
+
 		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {menuItemNameTextField, supplyList1, supplyList2, supplyList3, supplyList4, addMenuItemButton});
+		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {menuItemScrollPane, menuItemInfo, refreshButton});
 
 		layout.setVerticalGroup(
 				layout.createSequentialGroup()
@@ -197,7 +212,7 @@ public class MenuItemsPage extends JFrame {
 				.addComponent(addMenuItemButton)
 				.addComponent(menuItemScrollPane)
 				.addComponent(menuItemInfo)
-
+				.addComponent(refreshButton)
 				);
 		pack();
 	}
@@ -209,20 +224,6 @@ public class MenuItemsPage extends JFrame {
 		// error
 		errorMessage.setText(error);
 		if(error == null || error.length() == 0){
-
-			// update menu item info
-			String text = String.format("Name: %s\nPopularity: %s\nIngredients: %s", menuItemName, menuItemPopularity, menuItemIngredients);
-			menuItemInfo.setText(text);
-			// update  menu item list
-			DefaultListModel model1 = new DefaultListModel();
-			menuItemNames.removeAll(menuItemNames);
-			for(int x = 0; x < m.getMenuItems().size(); x++)
-				menuItemNames.add(m.getMenuItem(x).getName());
-			for(int x = 0; x < menuItemNames.size(); x++)
-				model1.addElement(menuItemNames.get(x));
-			menuItemList.setModel(model1);
-			menuItemList.setVisibleRowCount(menuItemNames.size());
-
 			// supply lists
 			supplies = new HashMap<Integer, Supply>();
 			supplyList1.removeAllItems();
@@ -240,8 +241,20 @@ public class MenuItemsPage extends JFrame {
 				supplyList4.addItem(p.getName());
 				index++;
 			}
-			
+
 		}
+		// update menu item info
+		String text = String.format("Name: %s\nPopularity: %s\nIngredients: %s", menuItemName, menuItemPopularity, menuItemIngredients);
+		menuItemInfo.setText(text);
+		// update  menu item list
+		DefaultListModel model1 = new DefaultListModel();
+		menuItemNames.removeAll(menuItemNames);
+		for(int x = 0; x < m.getMenuItems().size(); x++)
+			menuItemNames.add(m.getMenuItem(x).getName());
+		for(int x = 0; x < menuItemNames.size(); x++)
+			model1.addElement(menuItemNames.get(x));
+		menuItemList.setModel(model1);
+		menuItemList.setVisibleRowCount(menuItemNames.size());
 		selectedSupply1 = -1;
 		selectedSupply2 = -1;
 		selectedSupply3 = -1;
@@ -278,7 +291,7 @@ public class MenuItemsPage extends JFrame {
 		refreshData();
 	}
 
-	public void menuItemListValueChanged(ListSelectionEvent evt){
+	private void menuItemListValueChanged(ListSelectionEvent evt){
 		FTMS master = FTMS.getInstance();
 		menuItemName = master.getMenuItem(menuItemList.getSelectedIndex()).getName();
 		menuItemPopularity = Integer.toString(master.getMenuItem(menuItemList.getSelectedIndex()).getPopularity());
@@ -289,6 +302,10 @@ public class MenuItemsPage extends JFrame {
 				menuItemIngredients += ", ";
 		}
 		//update visuals
+		refreshData();
+	}
+
+	private void refreshButtonActionPerformed(ActionEvent evt) {
 		refreshData();
 	}
 }

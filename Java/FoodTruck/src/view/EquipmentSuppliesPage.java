@@ -21,7 +21,7 @@ public class EquipmentSuppliesPage extends JFrame{
 
 	// UI elements
 	private JLabel errorMessage;
-	
+
 	// for create equipment
 	private JTextField equipmentNameTextField;
 	private JLabel equipmentNameLabel;
@@ -30,7 +30,7 @@ public class EquipmentSuppliesPage extends JFrame{
 	private JTextField equipmentQuantityTextField;
 	private JLabel equipmentQuantityLabel;
 	private JButton addEquipmentButton;
-	
+
 	// for create supply
 	private JLabel supplyNameLabel;
 	private JTextField supplyNameTextField;
@@ -58,8 +58,8 @@ public class EquipmentSuppliesPage extends JFrame{
 	private String supplyDescription;
 	private String supplyQuantity;
 
-	// for testing
-	private JLabel testLabel;
+	// refresh Button
+	private JButton refreshButton;
 
 	/* Creates new form EquipmentSuppliesPage */
 	public EquipmentSuppliesPage(){
@@ -72,7 +72,7 @@ public class EquipmentSuppliesPage extends JFrame{
 		// elements for error message
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
-		
+
 		// elements for create equipment
 		equipmentNameTextField = new JTextField();
 		equipmentNameLabel = new JLabel();
@@ -81,7 +81,7 @@ public class EquipmentSuppliesPage extends JFrame{
 		equipmentQuantityTextField = new JTextField();
 		equipmentQuantityLabel = new JLabel();
 		addEquipmentButton = new JButton();
-		
+
 		// elements for create supply
 		supplyNameTextField = new JTextField();
 		supplyNameLabel = new JLabel();
@@ -90,7 +90,7 @@ public class EquipmentSuppliesPage extends JFrame{
 		supplyQuantityTextField = new JTextField();
 		supplyQuantityLabel = new JLabel();
 		addSupplyButton = new JButton();
-		
+
 		// elements for display equipment
 		equipmentNames = new ArrayList<String>();
 		equipmentList = new JList();
@@ -100,7 +100,7 @@ public class EquipmentSuppliesPage extends JFrame{
 		equipmentName = "";
 		equipmentDescription = "";
 		equipmentQuantity = "";
-		
+
 		//elements for display supply
 		supplyNames = new ArrayList<String>();
 		supplyList = new JList();
@@ -110,15 +110,20 @@ public class EquipmentSuppliesPage extends JFrame{
 		supplyName = "";
 		supplyDescription = "";
 		supplyQuantity = "";
-		
-		// elements for testing
-		testLabel = new JLabel();
-		testLabel.setText("Test");
-		
+
+		// refresh button
+		refreshButton = new JButton();
+		refreshButton.setText("Refresh");
+		refreshButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				refreshButtonActionPerformed(evt);
+			}
+		});
+
 		// global settings
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Equipment and Supplies");
-		
+
 		// create equipment settings and listener
 		equipmentNameLabel.setText("Name: ");
 		equipmentDescriptionLabel.setText("Description: ");
@@ -129,7 +134,7 @@ public class EquipmentSuppliesPage extends JFrame{
 				addEquipmentButtonActionPerformed(evt);
 			}
 		});
-		
+
 		// create supply settings and listener
 		supplyNameLabel.setText("Name: ");
 		supplyDescriptionLabel.setText("Description: ");
@@ -140,19 +145,21 @@ public class EquipmentSuppliesPage extends JFrame{
 				addSupplyButtonActionPerformed(evt);
 			}
 		});
-		
+
+
+
 		// create list listeners
 		equipmentList.addListSelectionListener(new ListSelectionListener(){
-					public void valueChanged(ListSelectionEvent evt){
-						equipmentListValueChanged(evt);
-					}
-				});
+			public void valueChanged(ListSelectionEvent evt){
+				equipmentListValueChanged(evt);
+			}
+		});
 		supplyList.addListSelectionListener(new ListSelectionListener(){
-					public void valueChanged(ListSelectionEvent evt){
-						supplyListValueChanged(evt);
-					}
-				});
-		
+			public void valueChanged(ListSelectionEvent evt){
+				supplyListValueChanged(evt);
+			}
+		});
+
 		// layout
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -186,10 +193,11 @@ public class EquipmentSuppliesPage extends JFrame{
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(equipmentInfo)
 						.addComponent(supplyInfo))
+				.addComponent(refreshButton, 600, 600, 600)
 				);
 
-		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addEquipmentButton, equipmentNameTextField});
-		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addSupplyButton, supplyNameTextField});
+		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addEquipmentButton, equipmentNameTextField, equipmentDescriptionTextField, equipmentQuantityTextField});
+		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addSupplyButton, supplyNameTextField, supplyDescriptionTextField, supplyQuantityTextField});
 
 		layout.setVerticalGroup(
 				layout.createSequentialGroup()
@@ -218,6 +226,7 @@ public class EquipmentSuppliesPage extends JFrame{
 				.addGroup(layout.createParallelGroup()
 						.addComponent(equipmentInfo)
 						.addComponent(supplyInfo))
+				.addComponent(refreshButton)
 				);
 		pack();
 	}
@@ -227,34 +236,6 @@ public class EquipmentSuppliesPage extends JFrame{
 		// error
 		errorMessage.setText(error);
 		if(error == null || error.length() == 0){
-			// update equipment info
-			String text = String.format("Name: %s\nDescription: %s\nQuantity: %s", equipmentName, equipmentDescription, equipmentQuantity);
-			equipmentInfo.setText(text);
-			
-			// update supply info
-			text = String.format("Name: %s\nDescription: %s\nQuantity: %s", supplyName, supplyDescription, supplyQuantity);
-			supplyInfo.setText(text);
-			
-			// update  equipment list
-			DefaultListModel model1 = new DefaultListModel();
-			equipmentNames.removeAll(equipmentNames);
-			for(int x = 0; x < master.getEquipments().size(); x++)
-				equipmentNames.add(master.getEquipment(x).getName());
-			for(int x = 0; x < equipmentNames.size(); x++)
-				model1.addElement(equipmentNames.get(x));
-			equipmentList.setModel(model1);
-			equipmentList.setVisibleRowCount(equipmentNames.size());
-
-			// update supply list
-			DefaultListModel model2 = new DefaultListModel();
-			supplyNames.removeAll(supplyNames);
-			for(int x = 0; x < master.getSupplies().size(); x++)
-				supplyNames.add(master.getSupply(x).getName());
-			for(int x =0; x < supplyNames.size(); x++)
-				model2.addElement(supplyNames.get(x));
-			supplyList.setModel(model2);
-			supplyList.setVisibleRowCount(supplyNames.size());
-			
 			// equipment
 			equipmentNameTextField.setText("");
 			equipmentDescriptionTextField.setText("");
@@ -265,6 +246,34 @@ public class EquipmentSuppliesPage extends JFrame{
 			supplyDescriptionTextField.setText("");
 			supplyQuantityTextField.setText("");
 		}
+
+		// update equipment info
+		String text = String.format("Name: %s\nDescription: %s\nQuantity: %s", equipmentName, equipmentDescription, equipmentQuantity);
+		equipmentInfo.setText(text);
+
+		// update supply info
+		text = String.format("Name: %s\nDescription: %s\nQuantity: %s", supplyName, supplyDescription, supplyQuantity);
+		supplyInfo.setText(text);
+
+		// update  equipment list
+		DefaultListModel model1 = new DefaultListModel();
+		equipmentNames.removeAll(equipmentNames);
+		for(int x = 0; x < master.getEquipments().size(); x++)
+			equipmentNames.add(master.getEquipment(x).getName());
+		for(int x = 0; x < equipmentNames.size(); x++)
+			model1.addElement(equipmentNames.get(x));
+		equipmentList.setModel(model1);
+		equipmentList.setVisibleRowCount(equipmentNames.size());
+
+		// update supply list
+		DefaultListModel model2 = new DefaultListModel();
+		supplyNames.removeAll(supplyNames);
+		for(int x = 0; x < master.getSupplies().size(); x++)
+			supplyNames.add(master.getSupply(x).getName());
+		for(int x =0; x < supplyNames.size(); x++)
+			model2.addElement(supplyNames.get(x));
+		supplyList.setModel(model2);
+		supplyList.setVisibleRowCount(supplyNames.size());
 
 		// this is needed because the size of the window changes depending on whether an error message is shown or not
 		pack();
@@ -283,7 +292,7 @@ public class EquipmentSuppliesPage extends JFrame{
 		refreshData();
 	}
 
-	public void addSupplyButtonActionPerformed(ActionEvent evt){
+	private void addSupplyButtonActionPerformed(ActionEvent evt){
 		// call the controller
 		Controller c = new Controller();
 		error = null;
@@ -295,8 +304,8 @@ public class EquipmentSuppliesPage extends JFrame{
 		// update visuals
 		refreshData();
 	}
-	
-	public void equipmentListValueChanged(ListSelectionEvent evt){
+
+	private void equipmentListValueChanged(ListSelectionEvent evt){
 		FTMS master = FTMS.getInstance();
 		equipmentName = master.getEquipment(equipmentList.getSelectedIndex()).getName();
 		equipmentDescription = master.getEquipment(equipmentList.getSelectedIndex()).getDescription();
@@ -304,13 +313,17 @@ public class EquipmentSuppliesPage extends JFrame{
 		//update visuals
 		refreshData();
 	}
-	
-	public void supplyListValueChanged(ListSelectionEvent evt){
+
+	private void supplyListValueChanged(ListSelectionEvent evt){
 		FTMS master = FTMS.getInstance();
 		supplyName = master.getSupply(supplyList.getSelectedIndex()).getName();
 		supplyDescription = master.getSupply(supplyList.getSelectedIndex()).getDescription();
 		supplyQuantity = Integer.toString(master.getSupply(supplyList.getSelectedIndex()).getQuantity());
 		//update visuals
+		refreshData();
+	}
+
+	private void refreshButtonActionPerformed(ActionEvent evt) {
 		refreshData();
 	}
 }

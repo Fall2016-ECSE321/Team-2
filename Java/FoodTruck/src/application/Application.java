@@ -4,6 +4,7 @@ import persistence.Persistence;
 import view.EquipmentSuppliesPage;
 import view.MenuItemsPage;
 import view.OrdersPage;
+import view.StaffSchedulePage;
 
 public class Application {
 
@@ -15,6 +16,7 @@ public class Application {
 				new EquipmentSuppliesPage().setVisible(true);
 				new MenuItemsPage().setVisible(true);
 				new OrdersPage().setVisible(true);
+				new StaffSchedulePage().setVisible(true);
 			}
 		});
 	}

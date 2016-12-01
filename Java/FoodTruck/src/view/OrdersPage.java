@@ -33,7 +33,7 @@ public class OrdersPage extends JFrame{
 
 	// UI elements
 	private JLabel errorMessage;
-	
+
 	// for create order
 	private JComboBox<String> itemList1;
 	private JComboBox<String> itemList2;
@@ -44,7 +44,7 @@ public class OrdersPage extends JFrame{
 	private JLabel itemLabel3;
 	private JLabel itemLabel4;
 	private JButton addOrderButton;
-	
+
 	// for display order history
 	private JList orderList;
 	private ArrayList<String> orderNames;
@@ -52,7 +52,10 @@ public class OrdersPage extends JFrame{
 	private JTextArea orderInfo;
 	private String orderNumber;
 	private String orderItems;
-	
+
+	// refreshButton
+	private JButton refreshButton;
+
 	// data elements
 	private String error = null;
 	private Integer selectedItem1 = -1;
@@ -60,17 +63,17 @@ public class OrdersPage extends JFrame{
 	private Integer selectedItem3 = -1;
 	private Integer selectedItem4 = -1;
 	private HashMap<Integer, MenuItem> items;
-	
+
 	public OrdersPage() {
 		initComponents();
 		refreshData();
 	}
-	
+
 	private void initComponents() {
 		// elements for error message
 		errorMessage = new JLabel();
 		errorMessage.setForeground(Color.RED);
-		
+
 		// elements for create order
 		itemList1 = new JComboBox<String>(new String[0]);
 		itemList1.addActionListener(new ActionListener() {
@@ -100,13 +103,13 @@ public class OrdersPage extends JFrame{
 				selectedItem4 = cb.getSelectedIndex();
 			}
 		});
-		
+
 		itemLabel1 = new JLabel();
 		itemLabel2 = new JLabel();
 		itemLabel3 = new JLabel();
 		itemLabel4 = new JLabel();
 		addOrderButton = new JButton();
-		
+
 		// elements for displaying orders
 		orderNames = new ArrayList<String>();
 		orderList = new JList();
@@ -115,11 +118,20 @@ public class OrdersPage extends JFrame{
 		orderInfo = new JTextArea();
 		orderNumber = "";
 		orderItems = "";
-		
+
+		// refresh button
+		refreshButton = new JButton();
+		refreshButton.setText("Refresh");
+		refreshButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				refreshButtonActionPerformed(evt);
+			}
+		});
+
 		// global settings
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Orders");
-		
+
 		// create order settings and listener
 		itemLabel1.setText("Choose Menu Item");
 		itemLabel2.setText("Choose Menu Item");
@@ -131,14 +143,14 @@ public class OrdersPage extends JFrame{
 				addOrderButtonActionPerformed(evt);
 			}
 		});
-		
+
 		// create list listeners
 		orderList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent evt) {
 				orderListValueChanged(evt);
 			}
 		});
-		
+
 		// layout
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -161,10 +173,11 @@ public class OrdersPage extends JFrame{
 								.addComponent(addOrderButton)))
 				.addComponent(orderScrollPane)
 				.addComponent(orderInfo)
+				.addComponent(refreshButton, 300, 300, 400)
 				);
 		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {itemList1, itemList2, itemList3, itemList4});
 		layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {itemList1, addOrderButton});
-		
+
 		layout.setVerticalGroup(
 				layout.createSequentialGroup()
 				.addComponent(errorMessage)
@@ -183,30 +196,20 @@ public class OrdersPage extends JFrame{
 				.addComponent(addOrderButton)
 				.addComponent(orderScrollPane)
 				.addComponent(orderInfo)
+				.addComponent(refreshButton)
 				);
 		pack();
 	}
-	
+
 	private void refreshData() {
-		
+
 		FTMS m = FTMS.getInstance();
-		
+
 		// error
 		errorMessage.setText(error);
 		if (error == null || error.length() == 0) {
-			// update order info
-			String text = String.format("Order Number: %s\nOrder Items:%s", orderNumber, orderItems);
-			orderInfo.setText(text);
-			// update order list
-			DefaultListModel model1 = new DefaultListModel();
-			orderNames.removeAll(orderNames);
-			for (int x = 0; x < m.getOrders().size(); x++)
-				orderNames.add(Integer.toString(m.getOrder(x).getId()));
-			for (int x = 0; x < orderNames.size(); x++)
-				model1.addElement(orderNames.get(x));
-			orderList.setModel(model1);
-			orderList.setVisibleRowCount(orderNames.size());
-			
+
+
 			// update items
 			items = new HashMap<Integer, MenuItem>();
 			itemList1.removeAllItems();
@@ -225,6 +228,18 @@ public class OrdersPage extends JFrame{
 				index++;
 			}
 		}
+		// update order info
+		String text = String.format("Order Number: %s\nOrder Items:%s", orderNumber, orderItems);
+		orderInfo.setText(text);
+		// update order list
+		DefaultListModel model1 = new DefaultListModel();
+		orderNames.removeAll(orderNames);
+		for (int x = 0; x < m.getOrders().size(); x++)
+			orderNames.add(Integer.toString(m.getOrder(x).getId()));
+		for (int x = 0; x < orderNames.size(); x++)
+			model1.addElement(orderNames.get(x));
+		orderList.setModel(model1);
+		orderList.setVisibleRowCount(orderNames.size());
 		selectedItem1 = -1;
 		selectedItem2 = -1;
 		selectedItem3 = -1;
@@ -235,7 +250,7 @@ public class OrdersPage extends JFrame{
 		itemList4.setSelectedIndex(selectedItem4);
 		pack();
 	}
-	
+
 	private void addOrderButtonActionPerformed(ActionEvent evt) {
 		// call the controller
 		Controller c = new Controller();
@@ -258,7 +273,7 @@ public class OrdersPage extends JFrame{
 		// update visuals
 		refreshData();
 	}
-	
+
 	private void orderListValueChanged(ListSelectionEvent evt) {
 		FTMS master = FTMS.getInstance();
 		orderNumber = Integer.toString(master.getOrder(orderList.getSelectedIndex()).getId());
@@ -269,6 +284,10 @@ public class OrdersPage extends JFrame{
 				orderItems += ", ";
 		}
 		// update visuals
+		refreshData();
+	}
+	
+	private void refreshButtonActionPerformed(ActionEvent evt) {
 		refreshData();
 	}
 }
