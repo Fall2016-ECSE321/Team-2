@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_manager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="ca.mcgill.ecse321.android_full_ftms.ManagerActivity"
+    tools:showIn="@layout/activity_manager">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <Button
+            android:backgroundTint="@color/peach"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/equipmentpagebutton"
+            android:layout_gravity="end"
+            android:onClick="goToEquipment"/>
+
+        <Button
+            android:backgroundTint="@color/peach"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/supplypagebutton"
+            android:layout_gravity="end"
+            android:onClick="goToSupply"/>
+
+        <Button
+            android:backgroundTint="@color/peach"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/menupagebutton"
+            android:layout_gravity="end"
+            android:onClick="goToMenu"/>
+
+        <Button
+            android:backgroundTint="@color/peach"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/orderpagebutton"
+            android:layout_gravity="end"
+            android:onClick="goToOrder"/>
+
+        <Button
+            android:backgroundTint="@color/peach"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/staffpagebutton"
+            android:layout_gravity="end"
+            android:onClick="goToStaff"/>
+
+        <Button
+            android:backgroundTint="@color/peach"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/schedulepagebutton"
+            android:layout_gravity="end"
+            android:onClick="goToSchedule"/>
+
+    </LinearLayout>
+</RelativeLayout>

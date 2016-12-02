@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-24.2.1_34b993303be19a1bfb804aae859a0a19474789a6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="2296944f5f842b04ec08afa9098ee2959d3b181a">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_e734d8f36c08de6633fcdaf20524d2e5328f0bbf\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\libs\xstream-1.4.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="bce3282142b63068260f021fcbe48b72e8d71a1a">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\2\xstream-1.4.7_1fa929a91c841798e962cb2905e39b401cec1867\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_661be3542db8967e6603f80c2d42f230d04b9de5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_818798d8a59934a42b632998fcd47b877ec42d5f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.2.1_1f4bf164743844c81d1e91d1b08c77c838487d49\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.2.1_fb2da762a3dc746367d23a5d338fe7ff7a3c57c9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-24.2.1_09d1427285b40ebc1c5da35f88d99f6122887840\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\libs\final_Lib.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="61d63ca3b4f888826c01be5c9c22ab81e9e486be">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\2\final_Lib_3194cf9f9ba6a9e4bf9b837313d0ca53d251f504\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\design\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-24.2.1_2d13dd2b75a1da4c2ad5a50aab8a20f2e7b0727a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7dc6287022f5b37b8592fbbd3c79f5ae6505a02f">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_dce7d3143456304179f0620817b71eacc717ae1d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\libs\xmlpull-1.1.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="2b8e230d2ab644e4ecaa94db7cdedbc40c805dfa">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\2\xmlpull-1.1.3.1_b2bbcc3398ef50a5870aacff3397571e273e857e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_b78a0727782e16019b22d739fafc12da4fd0d32b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-24.2.1_84f79c684789e6a2cf92ab36956a042ef75936d8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-24.2.1_bd7bdc930a798029098fffffe7ceb5537c706b71\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\libs\FoodTruck.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7de69f2e889f9afb728737ebf63c63a3871524c4">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\2\FoodTruck_f83a8f0d0d0c6e1a5ab5a625654039415e313855\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-24.2.1_ec7a509fea75d91e55bbbee8f3eef9f42ef6c4a3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.2.1_c8e6e8adb760fa93c3a584f940f3b45224fce454\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_0b8faef0efd5f39383a0ca9c9ec042bd02590135\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-24.2.1_da18011bb8561111603a599a61eb33b377af89cc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_a8e9a8091de4eaf654b2447db7cf02cb79fde364\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-24.2.1_3558d10c324a8ad301dc88cbda5027d6433ee1fc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-24.2.1_fe3f9497bacf8007ea5bacca23426602585a485a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-24.2.1_25754b8a57eeed864a66efe944952d200c46335c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_04cd5da523e3103750cbb90e1a07a1da0bfcb4ae\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-24.2.1_8590ea1c717bdc0f3ab03ac01961da862bcb3e61\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-24.2.1_6e4fb9da401399cd9a142c9cbb1e18ab9205b75a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\design\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-24.2.1_69ba9dd18e51fc1ab7b69c64072cd8c443e2bd97\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.2.1_cdd7c6865e3af96d13d6d83e2a00d0ecce402455\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.2.1_336fa4e808ff9c646a95c3f1afb92868c2ab4697\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-24.2.1_55d5e01965ee9c1448c24c35f19e0c83bc2c1d49\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-24.2.1_3e7ea47ba156212ca755ce13486d9887b9fefa91\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\libs\xmlpull-1.1.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="2b8e230d2ab644e4ecaa94db7cdedbc40c805dfa">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\2\xmlpull-1.1.3.1_8d19347a4fd86f771896cb8af9f2e7a4771ae0c7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-24.2.1_c424bd87de690e1852a790318cf790b811846f59\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_d5aced80885edd63e2640dfa00b6cc7478b2065b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_40fd4bbf7c796a3ccefd6eb55d9a1cf0b8efe69f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\libs\xstream-1.4.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="bce3282142b63068260f021fcbe48b72e8d71a1a">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\2\xstream-1.4.7_be041d0e514810ec0ae8ff17402cb2cd02f39bde\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.2.1_06e41789a5e8d5d7c901add471f8cd700af97802\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-24.2.1_f00ee068a6606b7bbeb387683d7c642f4c0bda04\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_131a23581c1291d4853128603f990960b565378a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_e7d7545c85d8f938506770318676046630d54cfc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="80b11abe47b948c8ee2fb00be7dd91fd0e58b84b">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_e2b7d386edf37100d0143301b3a877a6f7b8cb33\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="1cb437934366a61ee15fc3b07ee260cb1b0ab626">
+        <dex dex="C:\Users\aliel\Desktop\McGill\U2-1\ECSE 321\Team-2-master\Android\FoodTruck\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_6a8c67ce88a23901c699b2de2555ba079dbb0e02\classes.dex" />
+    </item>
+
+</items>
