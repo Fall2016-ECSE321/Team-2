@@ -1,6 +1,8 @@
 # Team-2: Food Truck Management
 
-## I. Build Android Application on Desktop
+## II. Build Android Application on Desktop
+
+## III. Build Android Application on Desktop
 
 ### Dependencies
 To run the app, you must have Android Studio along with API level 23 installed on your computer.
