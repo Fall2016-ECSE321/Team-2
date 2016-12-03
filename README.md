@@ -1,6 +1,6 @@
 # Team-2: Food Truck Management
 
-## I. BUILD FTMS ANDROID APPLICATION ON DESKTOP
+## I. Build Android Application on Desktop
 
 ### Dependencies
 To run the app, you must have Android Studio along with API level 23 installed on your computer.
