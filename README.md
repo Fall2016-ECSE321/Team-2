@@ -2,7 +2,7 @@
 
 ## I. Build Java Application on Desktop
 ### Dependencies 
-To run this app, you must have Apache Ant installed as well as JDK 1.7.
+To run the desktop app, you must have Apache Ant installed as well as JDK 1.7.
 
 ### Running
 1. Navigate to Java/FoodTruck
@@ -11,9 +11,9 @@ To run this app, you must have Apache Ant installed as well as JDK 1.7.
 ```bash
 ant run
 ```
-## II. Build Android Application on Desktop
+## II. Build Android Application on Desktop (Emulator)
 ### Dependencies
-To run the app, you must have Android Studio along with API level 23 installed on your computer.
+To run the android app on wmulator, you must have Android Studio along with API level 23 installed on your computer.
 
 ### Running
 1. Open Android Studio.
