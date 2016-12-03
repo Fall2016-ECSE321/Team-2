@@ -12,6 +12,15 @@ To run the desktop app, you must have Apache Ant installed as well as JDK 1.7.
 ```bash
 ant run
 ```
+### Alternative run 2
+1. For the alternative run, you must have Eclipse IDE as well as JDK 1.7
+2. Import project in Eclipse: choose already existing project
+3. Import the folder Java/FoodTruck in our repo
+4. Click on the run button
+
+### Alternative run 3
+1. For this run, you still need JDK 1.7
+2. Execute the file Java/FoodTruck/FoodTruck.jar file
 
 ### Wipe Data From App
 Delete the Java/FoodTruck/data.xml file
