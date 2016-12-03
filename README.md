@@ -1,17 +1,23 @@
 # Team-2: Food Truck Management
 
 ## I. Build Java Application on Desktop
+
 ### Dependencies 
 To run the desktop app, you must have Apache Ant installed as well as JDK 1.7.
 
 ### Running
-1. Navigate to Java/FoodTruck
+1. Navigate to Java/FoodTruck in our repo
 2. Run the following:
 
 ```bash
 ant run
 ```
+
+### Wipe Data From App
+Delete the Java/FoodTruck/data.xml file
+
 ## II. Build Android Application on Desktop (Emulator)
+
 ### Dependencies
 To run the android app on wmulator, you must have Android Studio along with API level 23 installed on your computer.
 
@@ -28,3 +34,16 @@ To run the android app on wmulator, you must have Android Studio along with API 
 3. Select the device used to run the application
 4. In the Actions tab, press the black downward arrow to expand the options.
 5. Press Wipe Data. You should be able to run the app Normally, but with data reset.
+
+## III. Run PHP webpage on localhost
+
+### Dependencies
+To run our app on web browsers, you must have XAMPP installed.
+
+### Running
+1. Paste the folder PHP/FoodTruck from our repo to the XAMPP/htdocs folder where you downloaded XAMPP
+2. Open any browser and type in 
+      localhost/FoodTruck
+
+### Wipe Data From App
+Delete the XAMPP/htdocs/FoodTruck/data.txt file.
