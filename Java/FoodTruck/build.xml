@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="FoodTruck" default="init" basedir=".">
+	 <path id="classpath">
+        <fileset dir="lib"/>
+    </path>
+
+	<target name="init" depends="clean">
+	     <mkdir dir="bin"/>
+	     <mkdir dir="bin/jar"/>
+	</target>
+
+	<target name="clean">
+		<delete dir="bin"/>
+	</target>
+	
+	<target name="compile" depends="init">
+        <javac srcdir="src" target="1.7" destdir="bin" includeantruntime="false" classpathref="classpath"/>
+    </target>
+	
+	<target name ="link" description="produces an executable jar file" depends="compile" >
+		<jar destfile="bin/jar/Computation.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-Class" value="application.Application"/>
+			</manifest>
+			<zipgroupfileset includes="*.jar" dir="lib"/>
+		</jar>
+	</target>
+  
+	<target name="run" depends="link">
+        <java jar="bin/jar/Computation.jar" fork="true"/>
+    </target>
+  
+</project>
