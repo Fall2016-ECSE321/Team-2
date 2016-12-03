@@ -18,7 +18,7 @@
     </target>
 	
 	<target name ="link" description="produces an executable jar file" depends="compile" >
-		<jar destfile="bin/jar/Computation.jar" basedir="bin">
+		<jar destfile="bin/jar/FoodTruck.jar" basedir="bin">
 			<manifest>
 				<attribute name="Main-Class" value="application.Application"/>
 			</manifest>
