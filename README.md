@@ -1,6 +1,6 @@
 # Team-2: Food Truck Management
 
-## Build Java Application on Desktop
+## I. Build Java Application on Desktop
 ### Dependencies 
 To run this app, you must have Apache Ant installed as well as JDK 1.7.
 
@@ -11,7 +11,7 @@ To run this app, you must have Apache Ant installed as well as JDK 1.7.
 ```bash
 ant run
 ```
-## Build Android Application on Desktop
+## II. Build Android Application on Desktop
 ### Dependencies
 To run the app, you must have Android Studio along with API level 23 installed on your computer.
 
